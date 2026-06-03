@@ -2,7 +2,7 @@
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-```
+
 <url>
     <loc>https://techtreasure.sbs/</loc>
     <changefreq>weekly</changefreq>
@@ -26,6 +26,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
 </url>
-```
+
 
 </urlset>
