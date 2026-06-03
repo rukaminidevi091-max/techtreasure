@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Loading...</title>
+
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/navbar.css">
+
+<style>
+
+body{
+    background:#f8fafc;
+}
+
+.article-wrap{
+    max-width:900px;
+    margin:auto;
+    padding:30px 15px;
+}
+
+.article-box{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid #e5e7eb;
+}
+
+.article-image{
+    width:100%;
+    max-height:500px;
+    object-fit:cover;
+}
+
+.article-content{
+    padding:30px;
+}
+
+.article-category{
+    display:inline-block;
+    background:#eff6ff;
+    color:#2563eb;
+    padding:6px 12px;
+    border-radius:999px;
+    margin-bottom:15px;
+}
+
+.article-title{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.article-meta{
+    color:#777;
+    margin-bottom:25px;
+}
+
+.article-body{
+    line-height:1.9;
+    font-size:18px;
+}
+
+.article-body h2{
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+.article-body p{
+    margin-bottom:18px;
+}
+
+.loading{
+    text-align:center;
+    padding:80px;
+}
+
+@media(max-width:768px){
+
+.article-title{
+    font-size:30px;
+}
+
+.article-body{
+    font-size:16px;
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="navbar-container"></div>
+
+<div class="article-wrap">
+
+<div id="article">
+
+<div class="loading">
+Loading Article...
+</div>
+
+</div>
+
+</div>
+
+<script src="/navbar.js"></script>
+
+<script>
+
+async function loadArticle(){
+
+const id =
+new URLSearchParams(
+window.location.search
+).get("id");
+
+const res =
+await fetch("../posts.json");
+
+const posts =
+await res.json();
+
+const post =
+posts.find(
+x => x.id === id
+);
+
+if(!post){
+
+document.getElementById(
+"article"
+).innerHTML =
+"<h1>Article Not Found</h1>";
+
+return;
+}
+
+document.title =
+post.title + " | Tech Treasure";
+
+document.getElementById(
+"article"
+).innerHTML =
+`
+<div class="article-box">
+
+<img
+class="article-image"
+src="${post.image}"
+alt="${post.title}"
+>
+
+<div class="article-content">
+
+<div class="article-category">
+${post.category}
+</div>
+
+<h1 class="article-title">
+${post.title}
+</h1>
+
+<div class="article-meta">
+${post.date} • ${post.author}
+</div>
+
+<div class="article-body">
+${post.content}
+</div>
+
+</div>
+
+</div>
+`;
+
+}
+
+loadArticle();
+
+</script>
+<script src="/navbar.js"></script>
+</body>
+</html>

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    
 <!-- monetag verification  -->
  <meta name="monetag" content="f97b4fff77877e05144c54e14bb24ff4">
 <!-- monetag verification  -->
@@ -33,116 +35,13 @@
 
 <link rel="canonical" href="https://techtreasure.sbs">
 
-<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet" href="navbar.css">
+<link rel="stylesheet" href="/style.css">
 </head>
-
 <body>
-<div id="telegram-directory">
+<div id="navbar-container"></div>
 
-<!-- NAVBAR -->
-<header class="tt-navbar">
-
-    <a href="/" class="tt-logo">
-        Tech Treasure
-    </a>
-
-    <button class="tt-menu-btn" onclick="togggleMenu()">
-        ☰
-    </button>
-
-    <nav id="tt-nav">
-        <a href="/">Home</a>
-        <a href="/sites/products.html">Products</a>
-        <a href="/sites/tools.html">Tools</a>
-        <a href="/sites/telegram.html">Telegram</a>
-        <a href="/sites/memes.html">Memes</a>
-     
-    </nav>
-<script>
-function togggleMenu(){
-    document
-        .getElementById("tt-nav")
-        .classList.toggle("active");
-}
-</script>
-</header>
-
-<style>
-.topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 20px;
-    background:#111;
-    color:#fff;
-    position:relative;
-}
-
-.topbar h1{
-    margin:0;
-    font-size:24px;
-}
-
-#navbar{
-    display:flex;
-    gap:20px;
-}
-
-#navbar a{
-    color:#fff;
-    text-decoration:none;
-    font-weight:500;
-    transition:0.3s;
-}
-
-#navbar a:hover{
-    opacity:0.8;
-}
-
-.menu-btn{
-    display:none;
-    background:none;
-    border:none;
-    color:#fff;
-    font-size:28px;
-    cursor:pointer;
-}
-
-/* Mobile View */
-@media (max-width:768px){
-
-    .menu-btn{
-        display:block;
-    }
-
-    #navbar{
-        display:none;
-        flex-direction:column;
-        position:absolute;
-        top:100%;
-        left:0;
-        width:100%;
-        background:#111;
-        border-top:1px solid #333;
-        z-index:1000;
-    }
-
-    #navbar.active{
-        display:flex;
-    }
-
-    #navbar a{
-        padding:15px 20px;
-        border-bottom:1px solid #222;
-    }
-}
-</style>
-
-<script>
-function toggleMenu() {
-    document.getElementById("navbar").classList.toggle("active");
-}
-</script>
 <!-- HERO -->
 <section class="hero">
   <h2>Build. Learn. Earn.</h2>
@@ -156,6 +55,24 @@ function toggleMenu() {
 <section class="features" id="features">
   
   <!-- SAMPLE FEATURE -->
+
+<div class="feature">
+    <div class="feature-header" onclick="toggle(this)">
+      <h3>Posts</h3>
+      <span>+</span>
+    </div>
+
+    <div class="feature-content">
+      <p style="margin-top:10px; font-family:Arial, sans-serif;">
+        Get the latest updates, tips, and insights on tech tools, online earning, and content creation. Stay informed and inspired with our regular posts.
+      </p>
+
+      <a class="btn" href="/posts/index.html">View Posts</a>
+    </div>
+  </div>
+
+
+
   <div class="feature">
     <div class="feature-header" onclick="toggle(this)">
       <h3>Free Editing Resources</h3>
@@ -167,7 +84,7 @@ function toggleMenu() {
         Access a collection of free editing tools and resources to enhance your content.
       </p>
 
-      <a class="btn" href="sites/products.html">Shop now</a>
+      <a class="btn" href="/free-editing-resources/index.html">Shop now</a>
     </div>
   </div>
 
@@ -191,7 +108,7 @@ function toggleMenu() {
         Discover tons of Telegram groups and channels to connect with other creators and stay updated on the latest tech trends.
       </p>
 
-      <a class="btn" href="sites/telegram.html">Open</a>
+      <a class="btn" href="/tele-groups-channels/index.html">Open</a>
     </div>
   </div>
   
@@ -213,7 +130,7 @@ function toggleMenu() {
         Daily life super useful tools for free , online tool, digitaltools. 
       </p>
       
-      <a class="btn" href="sites/tools.html">Open</a>
+      <a class="btn" href="/tools/index.html">Open</a>
     </div>
   </div>
   
@@ -231,7 +148,7 @@ function toggleMenu() {
         Discover the funniest memes and share your own!
       </p>
       
-      <a class="btn" href="sites/memes.html">Let make ppl laugh</a>
+      <a class="btn" href="/memes/index.html">Let make ppl laugh</a>
     </div>
   </div>
 
@@ -239,7 +156,7 @@ function toggleMenu() {
 
   
   
-  <a class="btn" href="sites/support.html" style="text-align: center;">Support us to motivate us (with out paying actually !)</a>
+  <a class="btn" href="/support/index.html" style="text-align: center;">Support us to motivate us (with out paying actually !)</a>
 
 </section>
 </div>
@@ -248,21 +165,9 @@ function toggleMenu() {
   © 2026 Tech Treasure — Minimal tools for creators
 </footer>
 
-<script>
-  
-function toggle(el){
-  const content = el.nextElementSibling;
-  const icon = el.querySelector("span");
 
-  if(content.style.maxHeight){
-    content.style.maxHeight = null;
-    icon.textContent = "+";
-  } else {
-    content.style.maxHeight = content.scrollHeight + "px";
-    icon.textContent = "−";
-  }
-}
-</script>
+<script src="/index.js"></script>
+<script src="/navbar.js"></script>
 
 </body>
 </html>

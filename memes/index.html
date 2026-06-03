@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funny Memes Collection | Tech Treasure</title>
+<meta name="description" content="Browse funny memes, swipe through endless memes, and share with friends.">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/navbar.css">
+<style>
+body{background:#f8fafc;margin:0}
+.meme-container{max-width:800px;margin:30px auto;padding:15px}
+.meme-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:20px;text-align:center}
+.meme-image{width:100%;max-height:650px;object-fit:contain;border-radius:15px;background:#f3f4f6;transition:opacity .35s,transform .35s}
+.fade-out{opacity:0;transform:translateX(20px)}
+#memeTitle{margin:15px 0;font-size:24px}
+#memeCounter{color:#666;margin-bottom:12px}
+.progress-wrap{height:8px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-bottom:20px}
+#progressBar{height:100%;width:0;background:#2563eb;transition:.35s}
+.meme-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.meme-buttons button{padding:12px 20px;border:none;border-radius:10px;cursor:pointer;background:#2563eb;color:#fff}
+footer{text-align:center;padding:30px;margin-top:40px;background:#fff;border-top:1px solid #e5e7eb}
+</style>
+</head>
+<body>
+<div id="navbar-container"></div>
+
+<div class="meme-container">
+<div class="meme-card">
+<img id="memeImg" class="meme-image" src="" alt="Meme" ondblclick="nextMeme()">
+<h2 id="memeTitle">Loading...</h2>
+<p id="memeCounter">Loading...</p>
+<div class="progress-wrap"><div id="progressBar"></div></div>
+
+<div class="meme-buttons">
+<button onclick="prevMeme()">⬅ Prev</button>
+<button onclick="shareMeme()">📤 Share</button>
+<button onclick="downloadMeme()">⬇ Download</button>
+<button onclick="randomMeme()">🎲 Random</button>
+<button onclick="copyLink()">🔗 Copy Link</button>
+<button onclick="nextMeme()">Next ➡</button>
+</div>
+</div>
+</div>
+
+<footer>© 2026 Tech Treasure — Minimal tools for creators</footer>
+
+<script>
+const API_URL="https://opensheet.elk.sh/1ey16Hjvr6c3B3M44bMEp8qvd2sVtYx8_UUZ2M8KbCYQ/sheet1";
+let memes=[],currentIndex=0,startX=0,currentX=0;
+
+async function loadMemes(){
+ try{
+  const r=await fetch(API_URL);
+  memes=await r.json();
+  memes.sort(()=>Math.random()-0.5);
+  showMeme();
+ }catch(e){document.getElementById("memeTitle").textContent="Failed to load memes";}
+}
+
+function updateProgress(){
+ document.getElementById("progressBar").style.width=((currentIndex+1)/memes.length*100)+"%";
+}
+
+function preloadNext(){
+ if(!memes.length)return;
+ const img=new Image();
+ img.src=memes[(currentIndex+1)%memes.length].URL;
+}
+
+function showMeme(){
+ const meme=memes[currentIndex];
+ const img=document.getElementById("memeImg");
+ img.classList.add("fade-out");
+ setTimeout(()=>{
+  img.src=meme.URL;
+  document.getElementById("memeTitle").textContent=meme.Name||"Funny Meme";
+  document.getElementById("memeCounter").textContent=(currentIndex+1)+" / "+memes.length;
+  document.title=(meme.Name||"Funny Meme")+" | Tech Treasure";
+  updateProgress();
+  preloadNext();
+  img.classList.remove("fade-out");
+ },150);
+}
+
+function nextMeme(){currentIndex=(currentIndex+1)%memes.length;showMeme();}
+function prevMeme(){currentIndex=(currentIndex-1+memes.length)%memes.length;showMeme();}
+function randomMeme(){currentIndex=Math.floor(Math.random()*memes.length);showMeme();}
+
+async function downloadMeme(){
+ try{
+  const url=memes[currentIndex].URL;
+  const res=await fetch(url);
+  const blob=await res.blob();
+  const blobUrl=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=blobUrl;
+  a.download=(memes[currentIndex].Name||"meme")+".jpg";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(blobUrl);
+ }catch(e){
+  window.open(memes[currentIndex].URL,"_blank");
+ }
+}
+
+function copyLink(){
+ navigator.clipboard.writeText(memes[currentIndex].URL);
+ alert("Image link copied");
+}
+
+function shareMeme(){
+ const meme=memes[currentIndex];
+ const text="😂 "+(meme.Name||"Funny Meme");
+ if(navigator.share){navigator.share({title:meme.Name,text,url:meme.URL});}
+ else window.open("https://wa.me/?text="+encodeURIComponent(text+" "+meme.URL));
+}
+
+document.addEventListener("keydown",e=>{
+ if(e.key==="ArrowRight")nextMeme();
+ if(e.key==="ArrowLeft")prevMeme();
+});
+
+document.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+document.addEventListener("touchmove",e=>currentX=e.touches[0].clientX);
+document.addEventListener("touchend",()=>{
+ const diff=startX-currentX;
+ if(diff>60)nextMeme();
+ if(diff<-60)prevMeme();
+});
+
+loadMemes();
+</script>
+<script src="/navbar.js"></script>
+</body>
+</html>

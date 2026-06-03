@@ -1,0 +1,23 @@
+[
+  {
+    "id": "dog-vs-cat",
+    "title": "Dog vs Cat: Which Pet Is Better?",
+    "description": "Complete comparison between dogs and cats.",
+    "image": "/images/articles/dog-cat.jpg",
+    "category": "Pets",
+    "date": "2026-06-03",
+    "author": "Tech Treasure",
+    "content": "<h2>Introduction</h2><p>Dogs and cats are...</p>"
+  },
+
+  {
+    "id": "best-ai-tools",
+    "title": "10 Best AI Tools",
+    "description": "Top AI tools for creators.",
+    "image": "/images/articles/ai-tools.jpg",
+    "category": "AI",
+    "date": "2026-06-03",
+    "author": "Tech Treasure",
+    "content": "<h2>Top Tools</h2><p>ChatGPT...</p>"
+  }
+]

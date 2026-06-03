@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Articles | Tech Treasure</title>
+
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/navbar.css">
+
+<style>
+
+body{
+    background:#f8fafc;
+}
+
+.posts-wrap{
+    max-width:1200px;
+    margin:auto;
+    padding:30px 15px;
+}
+
+.posts-title{
+    text-align:center;
+    font-size:36px;
+    margin-bottom:30px;
+}
+
+.posts-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:20px;
+}
+
+.post-card{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+    overflow:hidden;
+    transition:.25s;
+}
+
+.post-card:hover{
+    transform:translateY(-4px);
+}
+
+.post-image{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.post-content{
+    padding:18px;
+}
+
+.post-category{
+    display:inline-block;
+    padding:5px 10px;
+    background:#eff6ff;
+    color:#2563eb;
+    border-radius:999px;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.post-title{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.post-desc{
+    color:#666;
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.post-meta{
+    font-size:13px;
+    color:#999;
+    margin-bottom:15px;
+}
+
+.read-btn{
+    display:inline-block;
+    padding:10px 15px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+}
+
+.loading{
+    text-align:center;
+    padding:50px;
+}
+
+</style>
+
+</head>
+<body>
+<div id="navbar-container"></div>
+
+<div class="posts-wrap">
+
+<h1 class="posts-title">
+Latest Articles
+</h1>
+
+<div id="postsGrid" class="posts-grid">
+
+<div class="loading">
+Loading Articles...
+</div>
+
+</div>
+
+</div>
+
+<script src="/navbar.js"></script>
+
+<script>
+
+async function loadPosts(){
+
+const res =
+await fetch("./posts.json");
+
+const posts =
+await res.json();
+
+const grid =
+document.getElementById("postsGrid");
+
+grid.innerHTML = "";
+
+posts.reverse();
+
+posts.forEach(post=>{
+
+grid.innerHTML += `
+<div class="post-card">
+
+<img
+class="post-image"
+src="${post.image}"
+alt="${post.title}"
+>
+
+<div class="post-content">
+
+<div class="post-category">
+${post.category}
+</div>
+
+<h2 class="post-title">
+${post.title}
+</h2>
+
+<p class="post-desc">
+${post.description}
+</p>
+
+<div class="post-meta">
+${post.date} • ${post.author}
+</div>
+
+<a
+class="read-btn"
+href="/posts/articles/?id=${post.id}"
+>
+Read Article →
+</a>
+
+</div>
+
+</div>
+`;
+
+});
+
+}
+
+loadPosts();
+
+</script>
+<script src="/navbar.js"></script>
+</body>
+</html>
