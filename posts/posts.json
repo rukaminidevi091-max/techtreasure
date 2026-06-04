@@ -1,23 +1,37 @@
 [
   {
-    "id": "dog-vs-cat",
-    "title": "Dog vs Cat: Which Pet Is Better?",
-    "description": "Complete comparison between dogs and cats.",
-    "image": "/images/articles/dog-cat.jpg",
-    "category": "Pets",
-    "date": "2026-06-03",
+    "id": "cuet-counselling-documents-required-2026",
+    "title": "CUET Counselling Documents Required 2026 – Complete Checklist & Verification Guide",
+    "description": "Heading to CUET 2026 counselling? Get the complete document checklist – marksheets, ID proof, certificates & more – so you don't lose your seat on the big day.  ",
+    "image": "images/cuet.png",
+    "image1": "../images/cuet.png",
+    "category": "Education",
+    "date": "2026-06-04",
     "author": "Tech Treasure",
-    "content": "<h2>Introduction</h2><p>Dogs and cats are...</p>"
+    "content": "../postscode/cuet.html"
   },
 
   {
-    "id": "best-ai-tools",
-    "title": "10 Best AI Tools",
-    "description": "Top AI tools for creators.",
-    "image": "/images/articles/ai-tools.jpg",
-    "category": "AI",
-    "date": "2026-06-03",
+    "id": "ugc-net-2026-percentile-calculation-explained",
+    "title": "UGC NET 2026 Percentile Calculation Explained – Formula, Examples & Result Interpretation",
+    "description": " Confused about your UGC NET 2026 percentile score? Learn exactly how NTA calculates percentiles, what normalization means, and how to interpret your result for JRF or Assistant Professor eligibility.",
+    "image": "images/ugcnetpercentile.jpeg",
+    "image1": "../images/ugcnetpercentile.jpeg",
+    "category": "Education",
+    "date": "2026-06-04",
     "author": "Tech Treasure",
-    "content": "<h2>Top Tools</h2><p>ChatGPT...</p>"
+    "content": "../postscode/ugc.html"
+  },
+
+  {
+    "id": "world-environment-day-speech-for-students-2026-short-easy-inspiring-speeches",
+    "title": "World Environment Day Speech for Students 2026 – Short, Easy & Inspiring Speeches",
+    "description": "Looking for a World Environment Day speech for students in 2026? Find short, easy, and inspiring speech ideas, tips, and sample content aligned with the 2026 theme.",
+    "image": "images/environmentday.jpg",
+    "image1": "../images/environmentday.jpg",
+    "category": "Speeches",
+    "date": "2026-06-04",
+    "author": "Tech Treasure",
+    "content": "../postscode/environmentday.html"
   }
 ]

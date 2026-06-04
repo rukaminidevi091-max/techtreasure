@@ -18,10 +18,9 @@ body{
 
 .article-wrap{
     max-width:900px;
-    margin:auto;
-    padding:30px 15px;
+    margin:10px auto;
+    padding:10px 15px;
 }
-
 .article-box{
     background:white;
     border-radius:20px;
@@ -32,11 +31,12 @@ body{
 .article-image{
     width:100%;
     max-height:500px;
-    object-fit:cover;
+    object-fit:contain;
 }
 
+
 .article-content{
-    padding:30px;
+    padding:0px;
 }
 
 .article-category{
@@ -59,8 +59,8 @@ body{
 }
 
 .article-body{
-    line-height:1.9;
-    font-size:18px;
+    line-height:1.7;
+    font-size:16px;
 }
 
 .article-body h2{
@@ -103,55 +103,57 @@ body{
 <div class="loading">
 Loading Article...
 </div>
+ <div class="sticky-ad">
+            <script>
+  atOptions = {
+    'key' : '1968f0077a296f2b0346ba8b087f03d4',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/1968f0077a296f2b0346ba8b087f03d4/invoke.js"></script>
 
+        </div>
 </div>
 
 </div>
 
 <script src="/navbar.js"></script>
-
 <script>
 
-async function loadArticle(){
+async function loadArticle() {
 
-const id =
-new URLSearchParams(
-window.location.search
-).get("id");
+try {
 
-const res =
-await fetch("../posts.json");
+const id = new URLSearchParams(window.location.search).get("id");
 
-const posts =
-await res.json();
+const res = await fetch("../posts.json");
+const posts = await res.json();
 
-const post =
-posts.find(
-x => x.id === id
-);
+const post = posts.find(x => x.id === id);
 
-if(!post){
+if (!post) {
 
-document.getElementById(
-"article"
-).innerHTML =
+document.getElementById("article").innerHTML =
 "<h1>Article Not Found</h1>";
 
 return;
+
 }
 
-document.title =
-post.title + " | Tech Treasure";
+const articleRes = await fetch(post.content);
+const articleHtml = await articleRes.text();
 
-document.getElementById(
-"article"
-).innerHTML =
-`
+document.title = post.title + " | Tech Treasure";
+
+document.getElementById("article").innerHTML = `
 <div class="article-box">
 
 <img
 class="article-image"
-src="${post.image}"
+src="${post.image1}"
 alt="${post.title}"
 >
 
@@ -170,13 +172,24 @@ ${post.date} • ${post.author}
 </div>
 
 <div class="article-body">
-${post.content}
+${articleHtml}
 </div>
 
 </div>
 
 </div>
 `;
+
+} catch (err) {
+
+console.error(err);
+
+document.getElementById("article").innerHTML = `
+<h2>Content Load Failed</h2>
+<p>${err}</p>
+`;
+
+}
 
 }
 

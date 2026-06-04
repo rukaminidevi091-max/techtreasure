@@ -2,6 +2,7 @@
 .vscode\settings.json
 components\
 components\navbar.html
+cuet-counselling-documents-2026 (1).md
 free-editing-resources\
 free-editing-resources\assets\
 free-editing-resources\assets\freepresets.webp
@@ -37,8 +38,17 @@ navbar.js
 posts\
 posts\articles\
 posts\articles\index.html
+posts\images\
+posts\images\cuet.png
+posts\images\environmentday.jpg
+posts\images\speech2.png
+posts\images\ugcnetpercentile.jpeg
 posts\index.html
 posts\posts.json
+posts\postscode\
+posts\postscode\cuet.html
+posts\postscode\environmentday.html
+posts\postscode\ugc.html
 robots.txt
 sitemap.xml
 style.css
@@ -56,3 +66,6 @@ tools\Youtube-tools\yt-thumbnail-downloader\
 tools\Youtube-tools\yt-thumbnail-downloader\index.html
 tools\Youtube-tools\yt-video-statics\
 tools\Youtube-tools\yt-video-statics\index.html
+ugc-net-2026-percentile-calculation.md
+world-environment-day-speech-seo-humanized-v2.html
+world-environment-day-speech-seo-humanized-v2.md
