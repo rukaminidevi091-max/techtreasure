@@ -2,136 +2,554 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>(function(s){s.dataset.zone='11093287',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Funny Memes Collection | Tech Treasure</title>
-<meta name="description" content="Browse funny memes, swipe through endless memes, and share with friends.">
-<link rel="stylesheet" href="/style.css">
+<title>Meme Zone | Tech Treasure</title>
+<meta name="description" content="Browse, like, and download funny memes on Tech Treasure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="/navbar.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-body{background:#f8fafc;margin:0}
-.meme-container{max-width:800px;margin:30px auto;padding:15px}
-.meme-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:20px;text-align:center}
-.meme-image{width:100%;max-height:650px;object-fit:contain;border-radius:15px;background:#f3f4f6;transition:opacity .35s,transform .35s}
-.fade-out{opacity:0;transform:translateX(20px)}
-#memeTitle{margin:15px 0;font-size:24px}
-#memeCounter{color:#666;margin-bottom:12px}
-.progress-wrap{height:8px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-bottom:20px}
-#progressBar{height:100%;width:0;background:#2563eb;transition:.35s}
-.meme-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.meme-buttons button{padding:12px 20px;border:none;border-radius:10px;cursor:pointer;background:#2563eb;color:#fff}
-footer{text-align:center;padding:30px;margin-top:40px;background:#fff;border-top:1px solid #e5e7eb}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f7fb;
+  --surface:#ffffff;
+  --card:#ffffff;
+  --border:#e5e7eb;
+  --accent:#2563eb;
+  --accent2:#3b82f6;
+  --text:#111827;
+  --muted:#6b7280;
+  --green:#16a34a;
+  --red:#dc2626;
+
+  --font-display:'Bebas Neue',sans-serif;
+  --font-body:'DM Sans',sans-serif;
+}
+.page-header::before{
+  background:radial-gradient(
+    ellipse,
+    rgba(37,99,235,.12) 0%,
+    transparent 70%
+  );
+}
+
+.page-header h1{
+  color:var(--accent);
+  text-shadow:none;
+}
+
+.meme-img-wrap{
+  background:#f8fafc;
+}
+
+.btn-like{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.btn-dislike{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.btn-ghost,
+.btn-prev,
+.btn-next{
+  background:#fff;
+}
+
+.btn-prev:hover,
+.btn-next:hover{
+  background:#f3f4f6;
+}
+
+.lb-item:hover{
+  background:#f8fafc;
+}
+
+.toast{
+  background:#fff;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden}
+
+/* HERO HEADER */
+.page-header{text-align:center;padding:32px 16px 20px;position:relative}
+.page-header::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:200px;background:radial-gradient(ellipse,rgba(245,197,24,.12) 0%,transparent 70%);pointer-events:none}
+.page-header h1{font-family:var(--font-display);font-size:clamp(42px,8vw,72px);letter-spacing:2px;color:var(--accent);line-height:1;text-shadow:0 0 40px rgba(245,197,24,.3)}
+.page-header p{color:var(--muted);font-size:14px;margin-top:6px;letter-spacing:.5px}
+
+/* STATS BAR */
+.stats-bar{display:flex;justify-content:center;gap:24px;padding:0 16px 24px;flex-wrap:wrap}
+.stat-pill{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:7px 18px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.stat-pill span{color:var(--text);font-weight:600}
+
+/* MAIN LAYOUT */
+.meme-wrap{max-width:520px;margin:0 auto;padding:0 16px 40px}
+
+/* CARD */
+.meme-card{background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;position:relative}
+.meme-img-wrap{position:relative;background:#0d0d14;min-height:300px;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:grab}
+.meme-img-wrap:active{cursor:grabbing}
+#memeImg{width:100%;max-height:600px;object-fit:contain;display:block;transition:opacity .25s,transform .28s cubic-bezier(.4,0,.2,1)}
+#memeImg.swipe-left{opacity:0;transform:translateX(-60px) rotate(-3deg)}
+#memeImg.swipe-right{opacity:0;transform:translateX(60px) rotate(3deg)}
+#memeImg.fade-in{animation:fadeUp .3s ease forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* swipe indicator */
+.swipe-badge{position:absolute;top:16px;padding:6px 16px;border-radius:999px;font-weight:700;font-size:15px;opacity:0;transition:opacity .15s;pointer-events:none;z-index:5}
+#badgeLike{left:16px;background:rgba(34,197,94,.85);color:#fff}
+#badgeDislike{right:16px;background:rgba(239,68,68,.85);color:#fff}
+
+/* META */
+.meme-meta{padding:16px 20px 8px;display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+#memeTitle{font-size:17px;font-weight:600;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#memeCounter{font-size:13px;color:var(--muted);white-space:nowrap}
+
+/* PROGRESS */
+.progress-wrap{height:3px;background:var(--border);margin:0}
+#progressBar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s ease}
+
+/* ACTIONS */
+.actions{padding:16px 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{display:flex;align-items:center;gap:6px;padding:10px 16px;border:none;border-radius:12px;cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;transition:transform .12s,filter .12s,opacity .12s;white-space:nowrap}
+.btn:active{transform:scale(.95)}
+.btn-like{background:#16532d;color:var(--green);flex:1}
+.btn-like:hover{filter:brightness(1.2)}
+.btn-like.active{background:var(--green);color:#fff}
+.btn-dislike{background:#4c1414;color:var(--red);flex:1}
+.btn-dislike:hover{filter:brightness(1.2)}
+.btn-dislike.active{background:var(--red);color:#fff}
+.btn-ghost{background:var(--surface);color:var(--muted);border:1px solid var(--border);flex:1}
+.btn-ghost:hover{color:var(--text);border-color:#444}
+
+/* NAV BUTTONS */
+.nav-row{padding:0 20px 16px;display:flex;gap:10px}
+.btn-prev,.btn-next{flex:1;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:15px;font-weight:600;padding:12px;border-radius:14px;cursor:pointer;font-family:var(--font-body);transition:background .15s,transform .12s}
+.btn-prev:hover,.btn-next:hover{background:#22222f}
+.btn-prev:active,.btn-next:active{transform:scale(.97)}
+.btn-random{padding:12px 16px;background:var(--accent);color:#000;border:none;border-radius:14px;cursor:pointer;font-weight:700;font-size:15px;font-family:var(--font-body);transition:filter .15s,transform .12s}
+.btn-random:hover{filter:brightness(1.1)}
+.btn-random:active{transform:scale(.96)}
+
+/* LIKE COUNT */
+.like-bar{padding:8px 20px 16px;display:flex;gap:16px}
+.like-stat{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600}
+.like-stat.green{color:var(--green)}
+.like-stat.red{color:var(--red)}
+.ratio-bar{height:4px;background:var(--red);border-radius:999px;flex:1;overflow:hidden;align-self:center}
+.ratio-fill{height:100%;background:var(--green);transition:width .4s ease}
+
+/* AD SLOT */
+.ad-slot{margin:20px 0;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;text-align:center;min-height:100px;display:none}
+.ad-slot-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+
+/* LEADERBOARD */
+.leaderboard{margin-top:32px;background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.lb-header{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.lb-header h2{font-family:var(--font-display);font-size:22px;letter-spacing:1px;color:var(--accent)}
+.lb-tabs{display:flex;gap:6px}
+.lb-tab{padding:5px 14px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--font-body);transition:all .15s}
+.lb-tab.active{background:var(--accent);color:#000;border-color:var(--accent)}
+.lb-list{padding:12px 0}
+.lb-item{display:flex;align-items:center;gap:14px;padding:10px 20px;transition:background .15s}
+.lb-item:hover{background:rgba(255,255,255,.03)}
+.lb-rank{font-family:var(--font-display);font-size:20px;width:28px;text-align:center;color:var(--muted)}
+.lb-rank.gold{color:#fbbf24}
+.lb-rank.silver{color:#d1d5db}
+.lb-rank.bronze{color:#b45309}
+.lb-thumb{width:52px;height:40px;border-radius:8px;object-fit:cover;background:var(--border)}
+.lb-info{flex:1;min-width:0}
+.lb-name{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-votes{font-size:12px;color:var(--muted);margin-top:2px}
+.lb-score{font-weight:700;font-size:15px}
+.lb-score.green{color:var(--green)}
+.lb-score.red{color:var(--red)}
+.lb-empty{text-align:center;padding:32px;color:var(--muted);font-size:14px}
+
+/* SWIPE HINT */
+.hint{text-align:center;font-size:13px;color:var(--muted);padding:10px 0 4px;letter-spacing:.3px}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 20px;font-size:14px;color:var(--text);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:9999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+footer{text-align:center;padding:30px;color:var(--muted);font-size:13px;border-top:1px solid var(--border)}
 </style>
 </head>
 <body>
 <div id="navbar-container"></div>
 
-<div class="meme-container">
-<div class="meme-card">
-<img id="memeImg" class="meme-image" src="" alt="Meme" ondblclick="nextMeme()">
-<h2 id="memeTitle">Loading...</h2>
-<p id="memeCounter">Loading...</p>
-<div class="progress-wrap"><div id="progressBar"></div></div>
-
-<div class="meme-buttons">
-<button onclick="prevMeme()">⬅ Prev</button>
-<button onclick="shareMeme()">📤 Share</button>
-<button onclick="downloadMeme()">⬇ Download</button>
-<button onclick="randomMeme()">🎲 Random</button>
-<button onclick="copyLink()">🔗 Copy Link</button>
-<button onclick="nextMeme()">Next ➡</button>
-</div>
-</div>
+<div class="page-header">
+  <h1>MEME ZONE</h1>
+  <p>Swipe • Like • Download • Repeat</p>
 </div>
 
+<!-- <div class="stats-bar">
+  <div class="stat-pill">🎭 Total: <span id="totalCount">—</span></div>
+  <div class="stat-pill">❤️ Liked: <span id="likedCount">0</span></div>
+  <div class="stat-pill">👎 Disliked: <span id="dislikedCount">0</span></div>
+</div> -->
+
+<div class="meme-wrap">
+
+  <div class="meme-card">
+    <div class="meme-img-wrap" id="imgWrap">
+      <div class="swipe-badge" id="badgeLike">👍 LIKE</div>
+      <div class="swipe-badge" id="badgeDislike">👎 NOPE</div>
+      <img id="memeImg" src="" alt="Meme">
+    </div>
+    <div class="progress-wrap"><div id="progressBar"></div></div>
+    <div class="meme-meta">
+      <div id="memeTitle">Loading...</div>
+      <div id="memeCounter">—</div>
+    </div>
+    <!-- <div class="like-bar">
+      <div class="like-stat green" id="likeCount">👍 0</div>
+      <div class="ratio-bar"><div class="ratio-fill" id="ratioFill" style="width:50%"></div></div>
+      <div class="like-stat red" id="dislikeCount">👎 0</div>
+    </div> -->
+    <div class="actions">
+      <button class="btn btn-like" id="btnLike" onclick="voteMeme('like')">👍 Like</button>
+      <button class="btn btn-dislike" id="btnDislike" onclick="voteMeme('dislike')">👎 Dislike</button>
+      <button class="btn btn-ghost" onclick="downloadMeme()">⬇ Save</button>
+      <button class="btn btn-ghost" onclick="shareMeme()">📤 Share</button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-prev" onclick="prevMeme()">← Prev</button>
+      <button class="btn-random" onclick="randomMeme()">🎲</button>
+      <button class="btn-next" onclick="nextMeme()">Next →</button>
+    </div>
+  </div>
+
+  <div class="hint">👈 Swipe Left to Dislike &nbsp;|&nbsp; Swipe Right to Like 👉</div>
+
+  <div class="ad-slot" id="adSlot">
+    <div class="ad-slot-label">Advertisement</div>
+    <div id="adContent"></div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <!-- <div class="leaderboard">
+    <div class="lb-header">
+      <h2>LEADERBOARD</h2>
+      <div class="lb-tabs">
+        <button class="lb-tab active" id="tabLiked" onclick="switchTab('liked')">🔥 Most Liked</button>
+        <button class="lb-tab" id="tabDisliked" onclick="switchTab('disliked')">💀 Most Disliked</button>
+      </div>
+    </div>
+    <div class="lb-list" id="lbList">
+      <div class="lb-empty">Like some memes to see the leaderboard!</div>
+    </div>
+  </div>
+</div> -->
+
+<div class="toast" id="toast"></div>
 <footer>© 2026 Tech Treasure — Minimal tools for creators</footer>
 
 <script>
 const API_URL="https://opensheet.elk.sh/1ey16Hjvr6c3B3M44bMEp8qvd2sVtYx8_UUZ2M8KbCYQ/sheet1";
-let memes=[],currentIndex=0,startX=0,currentX=0;
+const SITE_LINK="https://techtreasure.sbs/memes";
+const WATERMARK="techtreasure.sbs";
+const STORAGE_KEY="tt_meme_votes";
 
-async function loadMemes(){
- try{
-  const r=await fetch(API_URL);
-  memes=await r.json();
-  memes.sort(()=>Math.random()-0.5);
-  showMeme();
- }catch(e){document.getElementById("memeTitle").textContent="Failed to load memes";}
+let memes=[],currentIndex=0,activeTab="liked";
+let startX=0,currentX=0,isDragging=false;
+
+function getVotes(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch{return {};}}
+function saveVotes(v){localStorage.setItem(STORAGE_KEY,JSON.stringify(v));}
+function getMemeName(m){return m["Meme Name"]||"Funny Meme";}
+function getMemeUrl(m){return m["Direct Image URL"]||"";}
+async function loadMemes(retry = 0){
+
+  try{
+
+    document.getElementById("memeTitle").textContent="Loading memes...";
+
+    const r = await fetch(API_URL,{
+      cache:"no-store"
+    });
+
+    if(!r.ok) throw new Error("API Error");
+
+    const data = await r.json();
+
+    memes = data.filter(
+      m => getMemeUrl(m) && getMemeUrl(m).startsWith("http")
+    );
+
+    if(!memes.length){
+      throw new Error("No memes found");
+    }
+
+    memes.sort(()=>Math.random()-.5);
+
+    document.getElementById("totalCount").textContent=memes.length;
+
+    updateSideStats();
+    showMeme(false);
+
+  }catch(err){
+
+    console.error(err);
+
+    if(retry < 3){
+
+      setTimeout(()=>{
+        loadMemes(retry + 1);
+      },1500);
+
+      return;
+    }
+
+    document.getElementById("memeTitle").textContent=
+      "Unable to load memes";
+  }
 }
 
-function updateProgress(){
- document.getElementById("progressBar").style.width=((currentIndex+1)/memes.length*100)+"%";
+function updateSideStats(){
+  const v=getVotes();
+  let liked=0,disliked=0;
+  Object.values(v).forEach(x=>{liked+=x.likes||0;disliked+=x.dislikes||0;});
+  document.getElementById("likedCount").textContent=liked;
+  document.getElementById("dislikedCount").textContent=disliked;
+}
+
+function showMeme(animate=true){
+  if(!memes.length)return;
+  const meme=memes[currentIndex];
+  const img=document.getElementById("memeImg");
+  if(animate){img.style.opacity=0;}
+  setTimeout(()=>{
+    img.src=getMemeUrl(meme);
+    document.getElementById("memeTitle").textContent=getMemeName(meme);
+    document.getElementById("memeCounter").textContent=(currentIndex+1)+" / "+memes.length;
+    document.title=getMemeName(meme)+" | Tech Treasure";
+    document.getElementById("progressBar").style.width=((currentIndex+1)/memes.length*100)+"%";
+    img.className="";
+    img.classList.add("fade-in");
+    updateVoteUI();
+    handleAd();
+    preloadNext();
+    if(animate)img.style.opacity=1;
+  },animate?100:0);
+}
+
+function updateVoteUI(){
+  if(!memes.length)return;
+  const key=getMemeUrl(memes[currentIndex]);
+  const v=getVotes();
+  const vote=v[key]||{likes:0,dislikes:0,myVote:null};
+  const likes=vote.likes||0,dislikes=vote.dislikes||0,total=likes+dislikes||1;
+  document.getElementById("likeCount").textContent="👍 "+likes;
+  document.getElementById("dislikeCount").textContent="👎 "+dislikes;
+  document.getElementById("ratioFill").style.width=(likes/total*100)+"%";
+  document.getElementById("btnLike").classList.toggle("active",vote.myVote==="like");
+  document.getElementById("btnDislike").classList.toggle("active",vote.myVote==="dislike");
+  renderLeaderboard();
+}
+
+function voteMeme(type){
+  if(!memes.length)return;
+  const key=getMemeUrl(memes[currentIndex]);
+  const v=getVotes();
+  if(!v[key])v[key]={likes:0,dislikes:0,myVote:null,name:getMemeName(memes[currentIndex]),url:getMemeUrl(memes[currentIndex])};
+  const prev=v[key].myVote;
+  if(prev===type){
+    v[key][type+"s"]=Math.max(0,(v[key][type+"s"]||0)-1);
+    v[key].myVote=null;
+  }else{
+    if(prev){v[key][prev+"s"]=Math.max(0,(v[key][prev+"s"]||0)-1);}
+    v[key][type+"s"]=(v[key][type+"s"]||0)+1;
+    v[key].myVote=type;
+    showToast(type==="like"?"❤️ Liked!":"👎 Disliked!");
+  }
+  saveVotes(v);
+  updateVoteUI();
+  updateSideStats();
+}
+
+function handleAd(){
+  const slot=document.getElementById("adSlot");
+  if(currentIndex>0&&currentIndex%5===0){
+    slot.style.display="block";
+    document.getElementById("adContent").innerHTML=`<script>atOptions={key:'1968f0077a296f2b0346ba8b087f03d4',format:'iframe',height:250,width:300,params:{}};<\/script><script src="https://www.highperformanceformat.com/1968f0077a296f2b0346ba8b087f03d4/invoke.js"><\/script>`;
+  }else{
+    slot.style.display="none";
+    document.getElementById("adContent").innerHTML="";
+  }
 }
 
 function preloadNext(){
- if(!memes.length)return;
- const img=new Image();
- img.src=memes[(currentIndex+1)%memes.length].URL;
+  if(!memes.length)return;
+  new Image().src=getMemeUrl(memes[(currentIndex+1)%memes.length]);
 }
 
-function showMeme(){
- const meme=memes[currentIndex];
- const img=document.getElementById("memeImg");
- img.classList.add("fade-out");
- setTimeout(()=>{
-  img.src=meme.URL;
-  document.getElementById("memeTitle").textContent=meme.Name||"Funny Meme";
-  document.getElementById("memeCounter").textContent=(currentIndex+1)+" / "+memes.length;
-  document.title=(meme.Name||"Funny Meme")+" | Tech Treasure";
-  updateProgress();
-  preloadNext();
-  img.classList.remove("fade-out");
- },150);
+function nextMeme(){
+  if(!memes.length)return;
+  currentIndex=(currentIndex+1)%memes.length;
+  showMeme();
+}
+function prevMeme(){
+  if(!memes.length)return;
+  currentIndex=(currentIndex-1+memes.length)%memes.length;
+  showMeme();
+}
+function randomMeme(){
+  if(!memes.length)return;
+  let r;do{r=Math.floor(Math.random()*memes.length);}while(memes.length>1&&r===currentIndex);
+  currentIndex=r;showMeme();
 }
 
-function nextMeme(){currentIndex=(currentIndex+1)%memes.length;showMeme();}
-function prevMeme(){currentIndex=(currentIndex-1+memes.length)%memes.length;showMeme();}
-function randomMeme(){currentIndex=Math.floor(Math.random()*memes.length);showMeme();}
-
+/* DOWNLOAD WITH WATERMARK */
 async function downloadMeme(){
- try{
-  const url=memes[currentIndex].URL;
-  const res=await fetch(url);
-  const blob=await res.blob();
-  const blobUrl=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=blobUrl;
-  a.download=(memes[currentIndex].Name||"meme")+".jpg";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(blobUrl);
- }catch(e){
-  window.open(memes[currentIndex].URL,"_blank");
- }
+  if(!memes.length)return;
+  const meme=memes[currentIndex];
+  const url=getMemeUrl(meme);
+  showToast("⬇ Preparing download...");
+  try{
+    const res=await fetch(url);
+    const blob=await res.blob();
+    const bmp=await createImageBitmap(blob);
+    const canvas=document.createElement("canvas");
+    canvas.width=bmp.width;canvas.height=bmp.height;
+    const ctx=canvas.getContext("2d");
+    ctx.drawImage(bmp,0,0);
+    const pad=Math.max(bmp.width,bmp.height)*0.02;
+    const fs=Math.max(12,Math.min(bmp.width,bmp.height)*0.035);
+    ctx.font=`bold ${fs}px 'DM Sans',sans-serif`;
+    ctx.textAlign="right";ctx.textBaseline="bottom";
+    ctx.fillStyle="rgba(0,0,0,0.45)";
+    const tw=ctx.measureText(WATERMARK).width;
+    ctx.fillRect(bmp.width-tw-pad*2,bmp.height-fs-pad*2,tw+pad*2,fs+pad*2);
+    ctx.fillStyle="rgba(255,255,255,0.9)";
+    ctx.fillText(WATERMARK,bmp.width-pad,bmp.height-pad);
+    canvas.toBlob(b=>{
+      const a=document.createElement("a");
+      a.href=URL.createObjectURL(b);
+      a.download=getMemeName(meme).replace(/[^\w\s-]/g,"")+".jpg";
+      document.body.appendChild(a);a.click();a.remove();
+      URL.revokeObjectURL(a.href);
+      showToast("✅ Downloaded!");
+    },"image/jpeg",.92);
+  }catch(e){
+    window.open(url,"_blank");
+    showToast("📂 Opened in new tab");
+  }
 }
 
-function copyLink(){
- navigator.clipboard.writeText(memes[currentIndex].URL);
- alert("Image link copied");
-}
-
+/* SHARE */
 function shareMeme(){
- const meme=memes[currentIndex];
- const text="😂 "+(meme.Name||"Funny Meme");
- if(navigator.share){navigator.share({title:meme.Name,text,url:meme.URL});}
- else window.open("https://wa.me/?text="+encodeURIComponent(text+" "+meme.URL));
+  if(!memes.length)return;
+  const meme=memes[currentIndex];
+  const text=`😂 ${getMemeName(meme)}\n\nMore Memes:\n${SITE_LINK}`;
+  if(navigator.share){navigator.share({title:getMemeName(meme),text,url:SITE_LINK});}
+  else{window.open("https://wa.me/?text="+encodeURIComponent(text));}
 }
 
+/* LEADERBOARD */
+function switchTab(tab){
+  activeTab=tab;
+  document.getElementById("tabLiked").classList.toggle("active",tab==="liked");
+  document.getElementById("tabDisliked").classList.toggle("active",tab==="disliked");
+  renderLeaderboard();
+}
+
+function renderLeaderboard(){
+  const v=getVotes();
+  const items=Object.values(v).filter(x=>x.url);
+  let sorted;
+  if(activeTab==="liked"){sorted=[...items].sort((a,b)=>(b.likes||0)-(a.likes||0));}
+  else{sorted=[...items].sort((a,b)=>(b.dislikes||0)-(a.dislikes||0));}
+  const top=sorted.slice(0,8).filter(x=>(activeTab==="liked"?(x.likes||0):(x.dislikes||0))>0);
+  const el=document.getElementById("lbList");
+  if(!top.length){el.innerHTML='<div class="lb-empty">No votes yet — start voting!</div>';return;}
+  const ranks=["🥇","🥈","🥉"];
+  el.innerHTML=top.map((x,i)=>{
+    const score=activeTab==="liked"?(x.likes||0):(x.dislikes||0);
+    const rankClass=i===0?"gold":i===1?"silver":i===2?"bronze":"";
+    const rankLabel=ranks[i]||(i+1);
+    return `<div class="lb-item">
+      <div class="lb-rank ${rankClass}">${rankLabel}</div>
+      <img class="lb-thumb" src="${x.url}" alt="" loading="lazy" onerror="this.style.opacity=0">
+      <div class="lb-info">
+        <div class="lb-name">${x.name||"Meme"}</div>
+        <div class="lb-votes">${(x.likes||0)} 👍 &nbsp; ${(x.dislikes||0)} 👎</div>
+      </div>
+      <div class="lb-score ${activeTab==="liked"?"green":"red"}">${score}</div>
+    </div>`;
+  }).join("");
+}
+
+/* TOAST */
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove("show"),2000);
+}
+
+/* KEYBOARD */
 document.addEventListener("keydown",e=>{
- if(e.key==="ArrowRight")nextMeme();
- if(e.key==="ArrowLeft")prevMeme();
+  if(e.key==="ArrowRight")nextMeme();
+  if(e.key==="ArrowLeft")prevMeme();
+  if(e.key==="l"||e.key==="L")voteMeme("like");
+  if(e.key==="d"||e.key==="D")voteMeme("dislike");
 });
 
-document.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
-document.addEventListener("touchmove",e=>currentX=e.touches[0].clientX);
-document.addEventListener("touchend",()=>{
- const diff=startX-currentX;
- if(diff>60)nextMeme();
- if(diff<-60)prevMeme();
+/* SWIPE TOUCH */
+const wrap=document.getElementById("imgWrap");
+wrap.addEventListener("touchstart",e=>{
+  startX=e.touches[0].clientX;currentX=startX;isDragging=true;
+},{passive:true});
+wrap.addEventListener("touchmove",e=>{
+  if(!isDragging)return;
+  currentX=e.touches[0].clientX;
+  const diff=currentX-startX;
+  if(Math.abs(diff)>20){
+    document.getElementById("badgeLike").style.opacity=diff>0?Math.min((diff-20)/60,1):0;
+    document.getElementById("badgeDislike").style.opacity=diff<0?Math.min((-diff-20)/60,1):0;
+  }
+},{passive:true});
+wrap.addEventListener("touchend",()=>{
+  if(!isDragging)return;
+  isDragging=false;
+  document.getElementById("badgeLike").style.opacity=0;
+  document.getElementById("badgeDislike").style.opacity=0;
+  const diff=currentX-startX;
+  if(diff>60){voteMeme("like");nextMeme();}
+  else if(diff<-60){voteMeme("dislike");nextMeme();}
+  startX=0;currentX=0;
+},{passive:true});
+
+/* MOUSE DRAG (desktop) */
+wrap.addEventListener("mousedown",e=>{startX=e.clientX;currentX=e.clientX;isDragging=true;});
+document.addEventListener("mousemove",e=>{
+  if(!isDragging)return;
+  currentX=e.clientX;
+  const diff=currentX-startX;
+  if(Math.abs(diff)>20){
+    document.getElementById("badgeLike").style.opacity=diff>0?Math.min((diff-20)/60,1):0;
+    document.getElementById("badgeDislike").style.opacity=diff<0?Math.min((-diff-20)/60,1):0;
+  }
+});
+document.addEventListener("mouseup",()=>{
+  if(!isDragging)return;
+  isDragging=false;
+  document.getElementById("badgeLike").style.opacity=0;
+  document.getElementById("badgeDislike").style.opacity=0;
+  const diff=currentX-startX;
+  if(diff>60){voteMeme("like");nextMeme();}
+  else if(diff<-60){voteMeme("dislike");nextMeme();}
+  startX=0;currentX=0;
 });
 
-loadMemes();
+window.addEventListener("load",()=>{
+  loadMemes();
+});
 </script>
 <script src="/navbar.js"></script>
 </body>
