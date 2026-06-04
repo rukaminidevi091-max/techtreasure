@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="/style.css">
 <link rel="stylesheet" href="/navbar.css">
+<link rel="stylesheet" href="/related-posts.css">
 
 <style>
 
@@ -38,6 +39,7 @@ body{
 .article-content{
     padding:4px;
 }
+
 
 .article-category{
     display:inline-block;
@@ -87,6 +89,104 @@ body{
     font-size:16px;
 }
 
+.article-content{
+   padding:20px;
+}
+
+/* Universal article container */
+.article-body,
+.article-content-inner{
+    width:100%;
+    max-width:100%;
+    overflow-wrap:break-word;
+}
+
+/* Better typography */
+.article-body p,
+.article-body li,
+.article-content-inner p,
+.article-content-inner li{
+    font-size:clamp(16px,1.2vw + 12px,19px);
+    line-height:1.8;
+}
+
+/* Responsive headings */
+h1{
+   font-size:clamp(28px,5vw,48px);
+}
+
+h2{
+   font-size:clamp(22px,4vw,34px);
+}
+
+h3{
+   font-size:clamp(18px,3vw,26px);
+}
+
+/* Images */
+img{
+   max-width:100%;
+   height:auto;
+   display:block;
+}
+
+/* Tables fix */
+table{
+   display:block;
+   overflow-x:auto;
+   white-space:nowrap;
+}
+
+/* Mobile fixes */
+@media (max-width:768px){
+
+.article-body,
+.article-content,
+.article-content-inner{
+   padding:12px;
+}
+
+.article-title{
+   font-size:28px;
+}
+
+body{
+   padding:8px;
+}
+
+}
+body{
+   margin:0;
+   padding:0;
+}
+
+.article-wrap{
+   max-width:900px;
+   margin:0 auto;
+   padding:5px;   /* pehle 10px 15px tha */
+}
+
+.article-body,
+.article-content{
+   padding:12px;   /* कम karo */
+}
+
+@media(max-width:768px){
+
+.article-wrap{
+   padding:0 6px;
+}
+
+.article-box{
+   border-radius:12px;
+}
+
+.article-body,
+.article-content{
+   padding:10px;
+}
+
+}
 }
 
 </style>
@@ -120,7 +220,9 @@ Loading Article...
 
 </div>
 
+<div class="related posts"></div>
 <script src="/navbar.js"></script>
+<script src="/related-posts.js"></script>
 <script>
 
 async function loadArticle() {
