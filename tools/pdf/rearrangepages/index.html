@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>(function(s){s.dataset.zone='11093287',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rearrange PDF Pages</title>
+    <link rel="stylesheet" href="/navbar.css">
+</head>
+<body>
+    <div id="navbar-container"></div>
+
+<style>
+:root{
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --border:#e5e7eb;
+  --text:#111827;
+  --muted:#6b7280;
+  --primary:#2563eb;
+  --primary2:#1d4ed8;
+  --success:#16a34a;
+  --danger:#dc2626;
+  --shadow:0 10px 30px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+body{margin:0}
+.pdf-tool{
+  max-width:1100px;
+  margin:auto;
+  padding:24px;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  color:var(--text);
+}
+.hero{
+  text-align:center;
+  margin-bottom:24px;
+}
+.hero h1{
+  margin:0 0 10px;
+  font-size:clamp(28px,4vw,44px);
+}
+.hero p{
+  margin:0 auto;
+  max-width:700px;
+  color:var(--muted);
+  line-height:1.6;
+}
+.trust{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+.badge{
+  background:#fff;
+  border:1px solid var(--border);
+  padding:10px 14px;
+  border-radius:999px;
+  font-size:14px;
+  box-shadow:var(--shadow);
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:22px;
+  box-shadow:var(--shadow);
+}
+.dropzone{
+  border:2px dashed #93c5fd;
+  border-radius:20px;
+  padding:40px 20px;
+  text-align:center;
+  cursor:pointer;
+  transition:.25s;
+}
+.dropzone:hover,
+.dropzone.drag{
+  background:#eff6ff;
+  border-color:var(--primary);
+}
+.dropzone svg{
+  width:60px;
+  height:60px;
+  fill:var(--primary);
+}
+.dropzone h3{
+  margin:10px 0 8px;
+}
+.dropzone p{
+  color:var(--muted);
+  margin:0;
+}
+.file-info{
+  display:none;
+  margin-top:16px;
+  padding:14px;
+  border-radius:14px;
+  background:#f8fafc;
+  border:1px solid var(--border);
+}
+.status{
+  margin-top:16px;
+  display:none;
+  padding:14px;
+  border-radius:12px;
+  font-size:14px;
+}
+.success{
+  background:#ecfdf5;
+  color:#166534;
+  border:1px solid #bbf7d0;
+}
+.error{
+  background:#fef2f2;
+  color:#991b1b;
+  border:1px solid #fecaca;
+}
+.controls{
+  margin-top:20px;
+  display:none;
+}
+.controls h3{
+  margin:0 0 12px;
+}
+.pages{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
+  gap:14px;
+}
+.page{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  text-align:center;
+  cursor:grab;
+  user-select:none;
+  transition:.2s;
+}
+.page:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(0,0,0,.08);
+}
+.page.dragging{
+  opacity:.4;
+}
+.page-number{
+  font-size:28px;
+  font-weight:700;
+  color:var(--primary);
+}
+.page-label{
+  font-size:13px;
+  color:var(--muted);
+}
+.actions{
+  margin-top:22px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+button{
+  border:none;
+  border-radius:14px;
+  padding:14px 22px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.25s;
+}
+.primary{
+  background:var(--primary);
+  color:#fff;
+}
+.primary:hover{
+  background:var(--primary2);
+}
+.secondary{
+  background:#eef2ff;
+  color:#1e40af;
+}
+.download{
+  background:var(--success);
+  color:#fff;
+  display:none;
+}
+.download:hover{
+  filter:brightness(.95);
+}
+.progress-wrap{
+  display:none;
+  margin-top:16px;
+}
+.progress{
+  height:12px;
+  background:#e5e7eb;
+  border-radius:999px;
+  overflow:hidden;
+}
+.bar{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,var(--primary),#60a5fa);
+  transition:.4s;
+}
+.progress-text{
+  margin-top:8px;
+  font-size:14px;
+  color:var(--muted);
+}
+.faq{
+  margin-top:40px;
+}
+.faq h2{
+  margin-bottom:16px;
+}
+.faq-item{
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:10px;
+  background:#fff;
+}
+.faq-item strong{
+  display:block;
+  margin-bottom:6px;
+}
+.hidden{display:none}
+@media(max-width:640px){
+  .pdf-tool{padding:16px}
+  button{width:100%}
+}
+</style>
+
+<div class="pdf-tool">
+  <div class="hero">
+    <h1>Rearrange PDF Pages</h1>
+    <p>Upload your PDF, drag pages into any order, and download the reorganized PDF instantly. Everything is processed securely in your browser.</p>
+
+
+<div class="trust">
+  <div class="badge">✓ Free to Use</div>
+  <div class="badge">✓ Secure Processing</div>
+  <div class="badge">✓ Works in Browser</div>
+  <div class="badge">✓ No Registration Required</div>
+</div>
+
+
+  </div>
+
+  <div class="card">
+    <input type="file" id="pdfInput" accept=".pdf,application/pdf" class="hidden">
+
+
+<div class="dropzone" id="dropzone">
+  <svg viewBox="0 0 24 24">
+    <path d="M19 15v4H5v-4H3v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4zM13 3v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17V3z"/>
+  </svg>
+  <h3>Drop PDF Here or Click to Upload</h3>
+  <p>Select a PDF file to begin rearranging pages.</p>
+</div>
+
+<div class="file-info" id="fileInfo"></div>
+
+<div id="status" class="status"></div>
+
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress">
+    <div class="bar" id="bar"></div>
+  </div>
+  <div class="progress-text" id="progressText">Preparing...</div>
+</div>
+
+<div class="controls" id="controls">
+  <h3>Drag Pages to Rearrange</h3>
+  <div class="pages" id="pagesContainer"></div>
+
+  <div class="actions">
+    <button class="primary" id="processBtn">Generate Rearranged PDF</button>
+    <button class="secondary" id="resetBtn">Upload Another PDF</button>
+    <button class="download" id="downloadBtn">Download PDF</button>
+  </div>
+</div>
+
+
+  </div>
+
+  <div class="faq">
+    <h2>FAQ</h2>
+
+
+<div class="faq-item">
+  <strong>Is this tool free?</strong>
+  Yes, completely free to use.
+</div>
+
+<div class="faq-item">
+  <strong>Are my files uploaded to a server?</strong>
+  No. Processing happens directly in your browser.
+</div>
+
+<div class="faq-item">
+  <strong>Can I rearrange large PDFs?</strong>
+  Yes, although performance depends on your device and browser memory.
+</div>
+
+<div class="faq-item">
+  <strong>Do I need an account?</strong>
+  No registration or login is required.
+</div>
+
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+<script>
+(() => {
+  const input = document.getElementById("pdfInput");
+  const dropzone = document.getElementById("dropzone");
+  const fileInfo = document.getElementById("fileInfo");
+  const statusBox = document.getElementById("status");
+  const controls = document.getElementById("controls");
+  const pagesContainer = document.getElementById("pagesContainer");
+  const processBtn = document.getElementById("processBtn");
+  const resetBtn = document.getElementById("resetBtn");
+  const downloadBtn = document.getElementById("downloadBtn");
+  const progressWrap = document.getElementById("progressWrap");
+  const bar = document.getElementById("bar");
+  const progressText = document.getElementById("progressText");
+
+  let pdfBytes = null;
+  let pageOrder = [];
+  let outputBlob = null;
+
+  function showStatus(msg,type){
+    statusBox.className = "status " + type;
+    statusBox.style.display = "block";
+    statusBox.textContent = msg;
+  }
+
+  function formatSize(bytes){
+    const units=["B","KB","MB","GB"];
+    let i=0;
+    while(bytes>=1024 && i<units.length-1){
+      bytes/=1024;
+      i++;
+    }
+    return bytes.toFixed(2)+" "+units[i];
+  }
+
+  async function handleFile(file){
+    try{
+      if(!file || file.type !== "application/pdf"){
+        showStatus("Please select a valid PDF file.","error");
+        return;
+      }
+
+      pdfBytes = await file.arrayBuffer();
+
+      fileInfo.style.display="block";
+      fileInfo.innerHTML=
+        "<strong>"+file.name+"</strong><br>" +
+        "Size: "+formatSize(file.size);
+
+      progressWrap.style.display="block";
+      bar.style.width="20%";
+      progressText.textContent="Reading PDF...";
+
+      const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
+
+      const count = pdfDoc.getPageCount();
+
+      pageOrder = Array.from({length:count},(_,i)=>i);
+
+      pagesContainer.innerHTML="";
+
+      pageOrder.forEach((p,index)=>{
+        const div=document.createElement("div");
+        div.className="page";
+        div.draggable=true;
+        div.dataset.index=index;
+        div.innerHTML=
+          '<div class="page-number">'+(index+1)+'</div>' +
+          '<div class="page-label">Page</div>';
+        pagesContainer.appendChild(div);
+      });
+
+      enableDragSort();
+
+      bar.style.width="100%";
+      progressText.textContent="PDF loaded successfully";
+
+      controls.style.display="block";
+      downloadBtn.style.display="none";
+
+      showStatus(
+        count+" pages loaded. Drag and drop pages into your preferred order.",
+        "success"
+      );
+
+    }catch(e){
+      console.error(e);
+      showStatus("Unable to read PDF file.","error");
+    }
+  }
+
+  function enableDragSort(){
+    let dragged=null;
+
+    pagesContainer.querySelectorAll(".page").forEach(item=>{
+      item.addEventListener("dragstart",()=>{
+        dragged=item;
+        item.classList.add("dragging");
+      });
+
+      item.addEventListener("dragend",()=>{
+        item.classList.remove("dragging");
+      });
+
+      item.addEventListener("dragover",(e)=>{
+        e.preventDefault();
+      });
+
+      item.addEventListener("drop",(e)=>{
+        e.preventDefault();
+
+        if(dragged===item) return;
+
+        const nodes=[...pagesContainer.children];
+        const from=nodes.indexOf(dragged);
+        const to=nodes.indexOf(item);
+
+        if(from<to){
+          item.after(dragged);
+        }else{
+          item.before(dragged);
+        }
+
+        const moved=pageOrder.splice(from,1)[0];
+        pageOrder.splice(to,0,moved);
+      });
+    });
+  }
+
+  processBtn.addEventListener("click",async()=>{
+    if(!pdfBytes) return;
+
+    try{
+      progressWrap.style.display="block";
+      bar.style.width="10%";
+      progressText.textContent="Creating new PDF...";
+
+      const source=await PDFLib.PDFDocument.load(pdfBytes);
+      const output=await PDFLib.PDFDocument.create();
+
+      for(let i=0;i<pageOrder.length;i++){
+        const [page]=await output.copyPages(source,[pageOrder[i]]);
+        output.addPage(page);
+
+        const progress=((i+1)/pageOrder.length)*90+10;
+        bar.style.width=progress+"%";
+        progressText.textContent=
+          "Processing page "+(i+1)+" of "+pageOrder.length;
+      }
+
+      const bytes=await output.save();
+
+      outputBlob=new Blob([bytes],{type:"application/pdf"});
+
+      downloadBtn.style.display="inline-block";
+      bar.style.width="100%";
+      progressText.textContent="Completed";
+
+      showStatus(
+        "PDF rearranged successfully. Click Download PDF.",
+        "success"
+      );
+
+    }catch(e){
+      console.error(e);
+      showStatus("Failed to generate PDF.","error");
+    }
+  });
+
+  downloadBtn.addEventListener("click",()=>{
+    if(!outputBlob) return;
+
+    const url=URL.createObjectURL(outputBlob);
+    const a=document.createElement("a");
+    a.href=url;
+    a.download="rearranged-pdf.pdf";
+    a.click();
+
+    setTimeout(()=>URL.revokeObjectURL(url),3000);
+  });
+
+  resetBtn.addEventListener("click",()=>{
+    input.value="";
+    pdfBytes=null;
+    outputBlob=null;
+    pageOrder=[];
+    pagesContainer.innerHTML="";
+    controls.style.display="none";
+    fileInfo.style.display="none";
+    statusBox.style.display="none";
+    progressWrap.style.display="none";
+    downloadBtn.style.display="none";
+  });
+
+  dropzone.addEventListener("click",()=>input.click());
+
+  input.addEventListener("change",(e)=>{
+    handleFile(e.target.files[0]);
+  });
+
+  ["dragenter","dragover"].forEach(evt=>{
+    dropzone.addEventListener(evt,(e)=>{
+      e.preventDefault();
+      dropzone.classList.add("drag");
+    });
+  });
+
+  ["dragleave","drop"].forEach(evt=>{
+    dropzone.addEventListener(evt,(e)=>{
+      e.preventDefault();
+      dropzone.classList.remove("drag");
+    });
+  });
+
+  dropzone.addEventListener("drop",(e)=>{
+    const file=e.dataTransfer.files[0];
+    handleFile(file);
+  });
+})();
+</script>
+
+
+    
+    <script src="/navbar.js"></script>
+</body>
+</html>

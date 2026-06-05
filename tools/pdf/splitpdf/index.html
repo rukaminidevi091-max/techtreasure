@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>(function(s){s.dataset.zone='11093287',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split pdf pages for FREE online!</title>
+    <link rel="stylesheet" href="/navbar.css">
+</head>
+<body>
+
+
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Split PDF</title>
+<link rel="stylesheet" href="/navbar.css">
+<style>
+body{font-family:Inter,Arial,sans-serif;background:#f8fafc;margin:0}
+.wrap{max-width:1200px;margin:auto;padding:40px 20px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.drop{border:2px dashed #93c5fd;border-radius:16px;padding:50px;text-align:center;cursor:pointer}
+button{background:#2563eb;color:#fff;border:0;padding:14px 22px;border-radius:12px;cursor:pointer}
+#download{display:none;background:#16a34a}
+</style></head><body>
+<div id="navbar-container"></div>
+<div class="wrap">
+<h1>Split PDF Pages</h1>
+<div class="card">
+<input id="pdf" type="file" accept=".pdf" hidden>
+<div class="drop" id="drop">Drop PDF or Click Upload</div>
+<p id="status"></p>
+<button id="split">Split All Pages</button>
+<button id="download">Download ZIP</button>
+</div>
+</div>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="/navbar.js"></script>
+<script>
+let fileData,zipBlob;
+const pdf=document.getElementById('pdf'),drop=document.getElementById('drop');
+drop.onclick=()=>pdf.click();
+pdf.onchange=e=>load(e.target.files[0]);
+drop.ondragover=e=>e.preventDefault();
+drop.ondrop=e=>{e.preventDefault();load(e.dataTransfer.files[0]);};
+async function load(f){fileData=await f.arrayBuffer();status.textContent=f.name+" loaded";}
+split.onclick=async()=>{
+ if(!fileData) return;
+ const doc=await PDFLib.PDFDocument.load(fileData);
+ const zip=new JSZip();
+ for(let i=0;i<doc.getPageCount();i++){
+  const n=await PDFLib.PDFDocument.create();
+  const [p]=await n.copyPages(doc,[i]);
+  n.addPage(p);
+  zip.file(`page-${i+1}.pdf`,await n.save());
+ }
+ zipBlob=await zip.generateAsync({type:'blob'});
+ download.style.display='inline-block';
+ status.textContent='Done';
+};
+download.onclick=()=>{
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(zipBlob);
+ a.download='split-pdf.zip';
+ a.click();
+};
+</script></body></html>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="/navbar.js"></script>
+</body>
+</html>
