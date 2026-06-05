@@ -16,9 +16,14 @@ body{
     padding:70px 20px 40px;
 }
 
-.hero h2{
+.hero h1{
     font-size:40px;
     margin-bottom:10px;
+}
+.hero h2{
+    font-size:32px;
+    color:#333;
+    margin-bottom:15px;
 }
 
 .hero p{
@@ -156,3 +161,103 @@ footer{
 }
 }
 /* ------------------- */
+
+.homepage-seo{
+    max-width:900px;
+    margin:60px auto;
+    padding:0 20px;
+    line-height:1.9;
+}
+
+.homepage-seo h2{
+    margin-top:40px;
+    margin-bottom:15px;
+    font-size:1.8rem;
+}
+
+.homepage-seo h3{
+    margin-top:25px;
+    margin-bottom:10px;
+    font-size:1.2rem;
+}
+
+.homepage-seo p{
+    margin-bottom:18px;
+    color:#555;
+}
+
+.homepage-seo ul{
+    padding-left:25px;
+}
+
+.homepage-seo li{
+    margin-bottom:10px;
+}
+
+.homepage-content{
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 35px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+
+.homepage-content h2{
+    font-size: 2rem;
+    color: #0F172A;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.homepage-content h2::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 70px;
+    height: 4px;
+    border-radius: 50px;
+    background: #3B82F6;
+}
+
+.homepage-content p{
+    font-size: 1.08rem;
+    line-height: 1.9;
+    color: #475569;
+    margin-bottom: 18px;
+}
+
+.homepage-content strong{
+    color: #0F172A;
+}
+
+@media (max-width:768px){
+
+    .homepage-content{
+        margin: 40px 15px;
+        padding: 25px;
+        border-radius: 14px;
+    }
+
+    .homepage-content h2{
+        font-size: 1.6rem;
+    }
+
+    .homepage-content p{
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+}
+.seo-badge{
+    display:inline-block;
+    background:#DBEAFE;
+    color:#1E40AF;
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:.9rem;
+    font-weight:600;
+    margin-bottom:15px;
+}

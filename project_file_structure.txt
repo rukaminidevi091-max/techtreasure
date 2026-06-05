@@ -1,7 +1,13 @@
 .vscode\
 .vscode\settings.json
+apple-touch-icon.png
 components\
 components\navbar.html
+favicon-16x16.png
+favicon-192x192.png
+favicon-32x32.png
+favicon-512x512.png
+favicon.ico
 free-editing-resources\
 free-editing-resources\assets\
 free-editing-resources\assets\freepresets.webp
@@ -27,12 +33,24 @@ free-editing-resources\assets\index.html
 free-editing-resources\index.html
 free-editing-resources\products.css
 free-editing-resources\products.js
+games\
+games\index.html
+games\rockpapersicors\
+games\rockpapersicors\index.html
+games\runner\
+games\runner\index.html
+games\sastadinogame\
+games\sastadinogame\index.html
+games\tictactoe\
+games\tictactoe\index.html
 generate-sitemap.js
 googlec91ab926b883faaa (1).html
 index.html
 index.js
+logo.png
 memes\
 memes\index.html
+memes\memes.json
 navbar.css
 navbar.js
 posts\
@@ -50,6 +68,7 @@ posts\postscode\cuet.html
 posts\postscode\environmentday.html
 posts\postscode\ugc.html
 robots.txt
+site.webmanifest
 sitemap.xml
 style.css
 support\
