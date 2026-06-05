@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <script src="https://5gvci.com/act/files/tag.min.js?z=11102725" data-cfasync="false" async></script>
+    <script>(function(s){s.dataset.zone='11093287',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <link rel="stylesheet" href="/navbar.css">
+    
+    <style>
+        body { background-color: #0f172a; color: white; font-family: sans-serif; overflow-x: hidden; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .hand-anim { transition: transform 0.3s ease; }
+        .shake { animation: shake 0.5s ease-in-out infinite; }
+        @keyframes shake { 
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        #navbar-container { position: relative; z-index: 100; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center">
+
+    <!-- Requested Navbar -->
+    <div id="navbar-container"></div>
+
+    <main class="w-full max-w-2xl px-4 py-8 flex flex-col items-center">
+        
+        <!-- Header & Scores -->
+        <div class="glass w-full rounded-3xl p-6 mb-8 flex justify-between items-center shadow-2xl">
+            <div class="text-center">
+                <p class="text-slate-400 text-xs font-bold uppercase">Player</p>
+                <h2 id="score-player" class="text-4xl font-black">0</h2>
+            </div>
+            <h1 class="text-slate-500 font-bold tracking-widest text-lg">VS</h1>
+            <div class="text-center">
+                <p class="text-slate-400 text-xs font-bold uppercase">CPU</p>
+                <h2 id="score-cpu" class="text-4xl font-black">0</h2>
+            </div>
+        </div>
+
+        <!-- Arena -->
+        <div id="arena" class="w-full flex justify-between items-center h-64 mb-12">
+            <div id="player-hand" class="text-8xl p-6 glass rounded-full transform transition-all duration-500 scale-100 opacity-100">✊</div>
+            <div class="text-2xl font-bold text-slate-500" id="vs-text">VS</div>
+            <div id="cpu-hand" class="text-8xl p-6 glass rounded-full transform transition-all duration-500 scale-100 opacity-100">✊</div>
+        </div>
+
+        <!-- Controls -->
+        <div id="controls" class="w-full grid grid-cols-3 gap-4">
+            <button onclick="play('rock')" class="glass p-6 rounded-3xl text-4xl hover:bg-slate-700 transition-all active:scale-95">🪨</button>
+            <button onclick="play('paper')" class="glass p-6 rounded-3xl text-4xl hover:bg-slate-700 transition-all active:scale-95">📄</button>
+            <button onclick="play('scissors')" class="glass p-6 rounded-3xl text-4xl hover:bg-slate-700 transition-all active:scale-95">✂️</button>
+        </div>
+
+        <!-- Status -->
+        <p id="message" class="mt-8 text-xl font-bold text-slate-300">Choose your weapon!</p>
+    </main>
+
+    <script src="/navbar.js"></script>
+
+    <script>
+        // --- AUDIO ---
+        let audioReady = false;
+        const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+        synth.set({ envelope: { attack: 0.01, decay: 0.1, sustain: 0, release: 0.1 } });
+
+        async function initAudio() {
+            if (!audioReady) {
+                await Tone.start();
+                audioReady = true;
+            }
+        }
+
+        function playSound(type) {
+            if (!audioReady) return;
+            if (type === 'tick') synth.triggerAttackRelease("C4", "32n");
+            if (type === 'win') synth.triggerAttackRelease(["C5", "E5", "G5"], "8n");
+            if (type === 'lose') synth.triggerAttackRelease(["C3", "G#2"], "8n");
+            if (type === 'draw') synth.triggerAttackRelease("D4", "8n");
+        }
+
+        document.addEventListener('click', initAudio, { once: true });
+
+        // --- GAME LOGIC ---
+        const emojis = { rock: '🪨', paper: '📄', scissors: '✂️' };
+        let scores = { player: 0, cpu: 0 };
+
+        async function play(playerChoice) {
+            const arena = document.getElementById('arena');
+            const playerHand = document.getElementById('player-hand');
+            const cpuHand = document.getElementById('cpu-hand');
+            const message = document.getElementById('message');
+
+            // Animation
+            playerHand.classList.add('shake');
+            cpuHand.classList.add('shake');
+            message.innerText = "Rock... Paper... Scissors...";
+            playSound('tick');
+            
+            await new Promise(r => setTimeout(r, 1000));
+            
+            playerHand.classList.remove('shake');
+            cpuHand.classList.remove('shake');
+
+            // Logic
+            const choices = ['rock', 'paper', 'scissors'];
+            const cpuChoice = choices[Math.floor(Math.random() * 3)];
+            
+            playerHand.innerText = emojis[playerChoice];
+            cpuHand.innerText = emojis[cpuChoice];
+
+            if (playerChoice === cpuChoice) {
+                message.innerText = "It's a draw!";
+                playSound('draw');
+            } else if (
+                (playerChoice === 'rock' && cpuChoice === 'scissors') ||
+                (playerChoice === 'paper' && cpuChoice === 'rock') ||
+                (playerChoice === 'scissors' && cpuChoice === 'paper')
+            ) {
+                message.innerText = "You win!";
+                scores.player++;
+                document.getElementById('score-player').innerText = scores.player;
+                playSound('win');
+            } else {
+                message.innerText = "CPU wins!";
+                scores.cpu++;
+                document.getElementById('score-cpu').innerText = scores.cpu;
+                playSound('lose');
+            }
+        }
+    </script>
+</body>
+</html>

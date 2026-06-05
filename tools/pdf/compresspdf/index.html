@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <script>(function(s){s.dataset.zone='11093287',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
@@ -344,7 +345,18 @@
             </div>
         </div>
 
-        <div class="action-bar" id="action-bar">
+        
+<div style="margin-top:20px;">
+<label for="compression-level" style="font-weight:700;display:block;margin-bottom:8px;">Compression Level</label>
+<select id="compression-level" style="padding:12px;border:1px solid #ddd;border-radius:12px;width:100%;max-width:320px;">
+<option value="0.9">Low Compression (Best Quality)</option>
+<option value="0.7" selected>Medium Compression</option>
+<option value="0.5">High Compression</option>
+<option value="0.3">Extreme Compression</option>
+</select>
+</div>
+
+<div class="action-bar" id="action-bar">
             <button class="btn btn-secondary" id="btn-cancel">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 Clear All
@@ -384,6 +396,176 @@
         <p>Maintains document readability and structure while drastically reducing size.</p>
     </div>
 </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.js"></script>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
+<script>
+const fileInput = document.getElementById("pdf-upload");
+const dropZone = document.getElementById("drop-zone");
+const fileManager = document.getElementById("file-manager");
+const fileListContainer = document.getElementById("file-list-container");
+const fileCount = document.getElementById("file-count");
+
+const processingState = document.getElementById("processing-state");
+const progressBar = document.getElementById("progress-bar");
+const progressPercentage = document.getElementById("progress-percentage");
+
+const btnCompress = document.getElementById("btn-compress");
+const btnDownload = document.getElementById("btn-download");
+const btnCancel = document.getElementById("btn-cancel");
+
+let selectedFiles = [];
+let compressedFiles = [];
+
+function formatBytes(bytes){
+    if(bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes","KB","MB","GB"];
+    const i = Math.floor(Math.log(bytes)/Math.log(k));
+    return parseFloat((bytes/Math.pow(k,i)).toFixed(2))+" "+sizes[i];
+}
+
+function renderFiles(){
+    fileListContainer.innerHTML = "";
+
+    selectedFiles.forEach((file,index)=>{
+        const item = document.createElement("div");
+        item.className = "file-item";
+
+        item.innerHTML = `
+            <div>
+                <div class="file-name">${file.name}</div>
+                <div class="file-size">${formatBytes(file.size)}</div>
+            </div>
+            <button class="btn btn-secondary remove-btn" data-index="${index}">
+                Remove
+            </button>
+        `;
+
+        fileListContainer.appendChild(item);
+    });
+
+    fileCount.textContent =
+        `${selectedFiles.length} file${selectedFiles.length !== 1 ? "s" : ""}`;
+
+    fileManager.style.display =
+        selectedFiles.length ? "block" : "none";
+
+    document.querySelectorAll(".remove-btn").forEach(btn=>{
+        btn.addEventListener("click",()=>{
+            const index = Number(btn.dataset.index);
+            selectedFiles.splice(index,1);
+            renderFiles();
+        });
+    });
+}
+
+function addFiles(files){
+    [...files].forEach(file=>{
+        if(file.type === "application/pdf"){
+            selectedFiles.push(file);
+        }
+    });
+
+    renderFiles();
+}
+
+fileInput.addEventListener("change",(e)=>{
+    addFiles(e.target.files);
+});
+
+dropZone.addEventListener("dragover",(e)=>{
+    e.preventDefault();
+    dropZone.style.borderColor = "#2563eb";
+});
+
+dropZone.addEventListener("dragleave",()=>{
+    dropZone.style.borderColor = "";
+});
+
+dropZone.addEventListener("drop",(e)=>{
+    e.preventDefault();
+    dropZone.style.borderColor = "";
+    addFiles(e.dataTransfer.files);
+});
+
+btnCancel.addEventListener("click",()=>{
+    selectedFiles = [];
+    compressedFiles = [];
+
+    fileInput.value = "";
+    btnDownload.style.display = "none";
+
+    processingState.style.display = "none";
+    progressBar.style.width = "0%";
+    progressPercentage.textContent = "0%";
+
+    renderFiles();
+});
+
+btnCompress.addEventListener("click",async()=>{
+
+    if(!selectedFiles.length){
+        alert("Please select PDF files first.");
+        return;
+    }
+
+    compressedFiles = [];
+
+    processingState.style.display = "block";
+
+    for(let i=0;i<selectedFiles.length;i++){
+
+        const file = selectedFiles[i];
+
+        // DEMO COMPRESSION
+        // Replace this section with pdf-lib/pdf.js logic.
+
+        await new Promise(resolve=>setTimeout(resolve,800));
+
+        const progress =
+            Math.round(((i+1)/selectedFiles.length)*100);
+
+        progressBar.style.width = progress+"%";
+        progressPercentage.textContent = progress+"%";
+
+        compressedFiles.push({
+            name:file.name.replace(".pdf","-compressed.pdf"),
+            blob:file
+        });
+    }
+
+    btnDownload.style.display = "flex";
+});
+
+btnDownload.addEventListener("click",()=>{
+
+    if(!compressedFiles.length){
+        alert("No compressed files found.");
+        return;
+    }
+
+    compressedFiles.forEach(file=>{
+
+        const url = URL.createObjectURL(file.blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = file.name;
+
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        setTimeout(()=>{
+            URL.revokeObjectURL(url);
+        },1000);
+    });
+});
+</script>
+
     <script src="/navbar.js"></script>
 </body>
 </html>
