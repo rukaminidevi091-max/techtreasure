@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>60 Second Challenge</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+
+body{
+background:#121212;
+color:#fff;
+min-height:100vh;
+padding-bottom:80px;
+}
+
+header{
+position:sticky;
+top:0;
+background:#1d1d1d;
+padding:12px;
+text-align:center;
+z-index:50;
+border-bottom:1px solid #333;
+}
+
+.wrap{
+max-width:700px;
+margin:auto;
+padding:18px;
+}
+
+.stats{
+display:flex;
+justify-content:space-between;
+margin:15px 0;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.box{
+background:#1f1f1f;
+padding:12px;
+border-radius:12px;
+flex:1;
+text-align:center;
+min-width:110px;
+}
+
+.progress{
+height:10px;
+background:#333;
+border-radius:99px;
+overflow:hidden;
+margin:20px 0;
+}
+
+.fill{
+height:100%;
+width:100%;
+transition:.3s;
+background:white;
+}
+
+.card{
+background:#1d1d1d;
+padding:25px;
+border-radius:16px;
+margin-top:15px;
+}
+
+.q{
+font-size:24px;
+margin-bottom:20px;
+}
+
+.answers button{
+width:100%;
+margin:8px 0;
+padding:14px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-size:16px;
+}
+
+.ad{
+margin:20px 0;
+padding:18px;
+background:#1a1a1a;
+border:1px dashed #444;
+border-radius:12px;
+text-align:center;
+}
+
+.overlay{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.94);
+z-index:200;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.modal{
+background:#1c1c1c;
+padding:25px;
+border-radius:16px;
+max-width:500px;
+width:100%;
+text-align:center;
+}
+
+.modal button{
+margin-top:18px;
+padding:12px 20px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+footer{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:#1d1d1d;
+padding:8px;
+text-align:center;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h2>⏱️ 60 Second Challenge</h2>
+</header>
+
+<div class="wrap">
+
+<!-- TOP AD ZONE -->
+<div class="ad">
+TOP AD ZONE
+</div>
+
+<div class="stats">
+<div class="box">Time<br><span id="time">60</span>s</div>
+<div class="box">Score<br><span id="score">0</span></div>
+<div class="box">Streak<br><span id="streak">0</span></div>
+<div class="box">Level<br><span id="level">1</span></div>
+</div>
+
+<div class="progress">
+<div class="fill" id="fill"></div>
+</div>
+
+<div class="card">
+
+<div class="q" id="question">
+Press Start
+</div>
+
+<div class="answers" id="answers"></div>
+
+<button id="startBtn" style="margin-top:20px;padding:14px;width:100%;">
+Start Game
+</button>
+
+</div>
+
+<!-- MID AD -->
+<div class="ad">
+MID CONTENT AD ZONE
+</div>
+
+<div style="margin-top:20px">
+<h3>Best Score:</h3>
+<p id="best">0</p>
+</div>
+
+</div>
+
+<div class="overlay" id="reward">
+
+<div class="modal">
+
+<h2>🎉 Stage Cleared</h2>
+
+<p>Next stage unlocked</p>
+
+<div class="ad">
+REWARD SCREEN AD ZONE
+</div>
+
+<button onclick="continueGame()">
+Continue
+</button>
+
+</div>
+
+</div>
+
+<div class="overlay" id="gameOver">
+
+<div class="modal">
+
+<h2>Game Over</h2>
+
+<p id="final"></p>
+
+<button onclick="restart()">
+Play Again
+</button>
+
+</div>
+
+</div>
+
+<footer>
+BOTTOM STICKY AD ZONE
+</footer>
+
+<script>
+
+const qs = [
+
+["5 + 4 ?",["9","7","6","8"],0],
+["Capital of India?",["Delhi","Patna","Mumbai","Kolkata"],0],
+["Sun rises from?",["East","West","North","South"],0],
+["HTML stands for?",[
+"Hyper Text Markup Language",
+"Home Tool",
+"High Markup",
+"None"],0],
+
+["3 x 3 ?",["9","8","7","6"],0]
+
+];
+
+let timer=60;
+let score=0;
+let streak=0;
+let lvl=1;
+let interval;
+let playing=false;
+
+const bestScore=
+localStorage.getItem("best") || 0;
+
+best.innerText=bestScore;
+
+function renderQuestion(){
+
+const q=
+qs[Math.floor(
+Math.random()*qs.length
+)];
+
+question.innerText=q[0];
+
+answers.innerHTML="";
+
+q[1].forEach((ans,i)=>{
+
+const b=
+document.createElement("button");
+
+b.innerText=ans;
+
+b.onclick=()=>{
+
+if(i===q[2]){
+
+score++;
+streak++;
+
+}else{
+
+streak=0;
+
+}
+
+update();
+
+checkStage();
+
+renderQuestion();
+
+};
+
+answers.appendChild(b);
+
+});
+
+}
+
+function update(){
+
+scoreEl=score;
+score.innerText=score;
+
+streak.innerText=streak;
+
+level.innerText=lvl;
+
+fill.style.width=
+(timer/60*100)+"%";
+
+}
+
+function start(){
+
+if(playing) return;
+
+playing=true;
+
+startBtn.style.display="none";
+
+renderQuestion();
+
+interval=setInterval(()=>{
+
+timer--;
+
+time.innerText=timer;
+
+fill.style.width=
+(timer/60*100)+"%";
+
+if(timer<=0){
+
+finish();
+
+}
+
+},1000);
+
+}
+
+function checkStage(){
+
+if(score>0 && score%10===0){
+
+lvl++;
+
+reward.style.display="flex";
+
+clearInterval(interval);
+
+}
+
+}
+
+function continueGame(){
+
+reward.style.display="none";
+
+interval=setInterval(()=>{
+
+timer--;
+
+time.innerText=timer;
+
+if(timer<=0){
+
+finish();
+
+}
+
+},1000);
+
+}
+
+function finish(){
+
+clearInterval(interval);
+
+playing=false;
+
+let bestNow=
+Math.max(
+score,
+localStorage.getItem("best")||0
+);
+
+localStorage.setItem(
+"best",
+bestNow
+);
+
+final.innerText=
+"Score: "+score;
+
+gameOver.style.display="flex";
+
+}
+
+function restart(){
+
+location.reload();
+
+}
+
+startBtn.onclick=start;
+
+</script>
+
+</body>
+</html>

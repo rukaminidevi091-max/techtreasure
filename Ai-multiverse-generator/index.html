@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant AI Story & Avatar Generator</title>
+    
+    <script>(function(s){s.dataset.zone='11093287',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script>(function(s){s.dataset.zone='11102727',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script src="https://5gvci.com/act/files/tag.min.js?z=11102725" data-cfasync="false" async></script>
+
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            width: 100%;
+            padding: 20px text-align;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        @media (min-width: 900px) {
+            .main-container {
+                grid-template-columns: 160px 1fr 300px;
+            }
+        }
+
+        /* Sidebar Advertisement Areas */
+        .ad-sidebar-left {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .ad-sidebar-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Interactive App Interface */
+        .app-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
+        }
+
+        button:hover {
+            background-color: #5b4cd1;
+        }
+
+        /* Loading / Progress Animation to increase Time-On-Site */
+        .loader-container {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 10px;
+            background-color: var(--primary);
+            transition: width 0.1s linear;
+        }
+
+        /* Results Section */
+        .result-box {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-left: 5px solid var(--primary);
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        /* Inline Banner Container */
+        .inline-ad-native {
+            width: 100%;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>✨ AI Multiverse Avatar & Story Generator</h1>
+        <p>Discover your alternate reality self in 30 seconds!</p>
+    </header>
+
+    <div class="main-container">
+        
+        <aside class="ad-sidebar-left">
+            <div>
+                <script>
+                    atOptions = {
+                        'key' : 'd13fb8f21112eb9080f10bd0c46e1e39',
+                        'format' : 'iframe',
+                        'height' : 600,
+                        'width' : 160,
+                        'params' : {}
+                    };
+                </script>
+                <script src="https://www.highperformanceformat.com/d13fb8f21112eb9080f10bd0c46e1e39/invoke.js"></script>
+            </div>
+        </aside>
+
+        <main class="app-card">
+            <h2>Enter Your Details</h2>
+            
+            <label for="userName">Your Name:</label>
+            <input type="text" id="userName" placeholder="e.g., Alex Carter" required>
+
+            <label for="dimension">Choose Reality/Genre:</label>
+            <select id="dimension">
+                <option value="Cyberpunk Neon City">Cyberpunk 2099 Neon City</option>
+                <option value="Medieval Fantasy Kingdom">Medieval High Fantasy</option>
+                <option value="Galactic Space Empire">Galactic Space Exploration</option>
+                <option value="Post-Apocalyptic Wasteland">Post-Apocalyptic Survival</option>
+            </select>
+
+            <button id="generateBtn" onclick="generateStory()">Generate My AI Identity</button>
+
+            <div class="loader-container" id="loader">
+                <p id="loadStatus">Connecting to Multiverse Neural Network...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <div class="inline-ad-native">
+                <script async="async" data-cfasync="false" src="https://pl29613831.effectivecpmnetwork.com/7c7a10ba1bc973d43d487edb56cfc540/invoke.js"></script>
+                <div id="container-7c7a10ba1bc973d43d487edb56cfc540"></div>
+            </div>
+
+            <div class="result-box" id="resultBox">
+                <h3>Your Multiverse Dossier:</h3>
+                <p id="storyOutput" style="margin-top: 10px; font-style: italic; line-height: 1.6;"></p>
+                
+                <button style="margin-top: 15px; background-color: #2ecc71;" onclick="resetApp()">Try Another Dimension</button>
+            </div>
+        </main>
+
+        <aside class="ad-sidebar-right">
+            <div>
+                <script>
+                    atOptions = {
+                        'key' : '1968f0077a296f2b0346ba8b087f03d4',
+                        'format' : 'iframe',
+                        'height' : 250,
+                        'width' : 300,
+                        'params' : {}
+                    };
+                </script>
+                <script src="https://www.highperformanceformat.com/1968f0077a296f2b0346ba8b087f03d4/invoke.js"></script>
+            </div>
+        </aside>
+
+    </div>
+
+    <script>
+        const stories = {
+            "Cyberpunk Neon City": "is a notorious rogue Netrunner known in the neon underground as 'The Phantom Grid'. Pursued by Megacorporations, you just cracked a secure data-shard containing the location of the world's last offline server.",
+            "Medieval Fantasy Kingdom": "is a legendary Spellsword chosen by the ancient dragons. Armed with an enchanted runeblade, you are currently on a quest to seal the Void Breach before the blood moon reaches its peak.",
+            "Galactic Space Empire": "is the rogue Commander of the starship 'Nebula Horizon'. Having escaped an interstellar federation trap, your crew discovered a hyper-gate leading to an unexplored, rich galaxy.",
+            "Post-Apocalyptic Wasteland": "is a master Scavenger and mechanic in the Rustlands. Riding a heavily modified interceptor vehicle, you possess the map to the last remaining clean water oasis on Earth."
+        };
+
+        function generateStory() {
+            const nameInput = document.getElementById('userName').value.trim();
+            if (!nameInput) {
+                alert("Please enter a name to start the generation!");
+                return;
+            }
+
+            const dimension = document.getElementById('dimension').value;
+            const btn = document.getElementById('generateBtn');
+            const loader = document.getElementById('loader');
+            const progressFill = document.getElementById('progressFill');
+            const loadStatus = document.getElementById('loadStatus');
+            const resultBox = document.getElementById('resultBox');
+
+            // Setup display state
+            btn.disabled = true;
+            resultBox.style.display = "none";
+            loader.style.display = "block";
+            
+            let progress = 0;
+            const statusMessages = [
+                "Scanning DNA across dimensions...",
+                "Bypassing firewalls...",
+                "Compiling reality fragments...",
+                "Finalizing your alternate dossier..."
+            ];
+
+            // Artificial progress delay to give maximum exposure to banners & vignette initialization
+            const interval = setInterval(() => {
+                progress += 2;
+                progressFill.style.width = progress + "%";
+
+                if(progress === 25) loadStatus.innerText = statusMessages[1];
+                if(progress === 50) loadStatus.innerText = statusMessages[2];
+                if(progress === 75) loadStatus.innerText = statusMessages[3];
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    loader.style.display = "none";
+                    
+                    // Show final output
+                    document.getElementById('storyOutput').innerText = `In the universe of "${dimension}", ${nameInput} ${stories[dimension]}`;
+                    resultBox.style.display = "block";
+                    btn.disabled = false;
+                }
+            }, 80); // ~4 seconds total wait time (perfect for keeping user attention)
+        }
+
+        function resetApp() {
+            document.getElementById('userName').value = '';
+            document.getElementById('resultBox').style.display = "none";
+            document.getElementById('progressFill').style.width = "0%";
+            document.getElementById('loadStatus').innerText = "Connecting to Multiverse Neural Network...";
+        }
+    </script>
+</body>
+</html>
