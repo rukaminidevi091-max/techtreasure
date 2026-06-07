@@ -1,0 +1,32 @@
+[
+  {
+    "url":"Movies/12th-fail-movie-explained/index.html",
+    "title":"Story of 12th Fail Explained – Full Plot, Ending & Hidden Details ",
+    "description":"12th Fail (2023) full story explained — the real journey of IPS officer Manoj Kumar Sharma from a failed student to UPSC topper. Vikrant Massey's best film. Read now.",
+    "image":"images/12.jpeg",
+    "category":"Movies"
+  },
+  {
+    "url":"Movies/Story-of-Peddi-(2026)-Explained/index.html",
+    "title":"Story of Peddi Explained – Full Plot, Ending & Hidden Details",
+    "description":"Story of Peddi explained in full – plot summary, ending meaning, cast details, and hidden facts about Ram Charan's 2026 Telugu sports drama. Read now.",
+    "image":"images/peddi.jpeg",
+    "category":"Movies"
+  },
+   {
+    "url":"Movies/Saiyara(2025)-full-explained/index.html",
+    "title":"Story of Saiyaara Explained – Full Plot, Ending & Hidden Details ",
+    "description":"Saiyaara (2025) full story explained — a heartbreaking musical romance where love meets early-onset Alzheimer's. Ahaan Panday & Aneet Padda's blockbuster. Read now.",
+    "image":"images/art3.jpeg",
+    "category":"Movies"
+  }, 
+  {
+    "url":"Tech-Ai/Claude-VS-Chatgpt(2026)/index.html",
+    "title":"ChatGPT vs Claude in 2026 – Which AI Should Indians Use?",
+    "description":"Discover the top 10 AI tools for content creators in 2024. From writing assistants to design generators, these tools will boost your creativity and productivity. Read now.",
+    "image":"images/ai1.png",
+    "category":"Tech"
+
+
+  }
+]

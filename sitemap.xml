@@ -3,95 +3,166 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- Homepage -->
-
   <url>
     <loc>https://techtreasure.sbs/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Main Sections -->
-
+  <!-- Main Pages -->
   <url>
-    <loc>https://techtreasure.sbs/posts/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <loc>https://techtreasure.sbs/articles/</loc>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://techtreasure.sbs/tools/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/games/</loc>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
+    <loc>https://techtreasure.sbs/memes/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://techtreasure.sbs/support/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://techtreasure.sbs/memes/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
     <loc>https://techtreasure.sbs/free-editing-resources/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://techtreasure.sbs/tele-groups-channels/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/brainrush/</loc>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/unlimited/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/Ai-multiverse-generator/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Articles -->
-
   <url>
-    <loc>https://techtreasure.sbs/posts/articles/?id=cuet-counselling-documents-required-2026</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://techtreasure.sbs/articles/Movies/12th-fail-movie-explained/</loc>
   </url>
 
   <url>
-    <loc>https://techtreasure.sbs/posts/articles/?id=ugc-net-2026-percentile-calculation-explained</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://techtreasure.sbs/articles/Movies/Saiyara(2025)-full-explained/</loc>
   </url>
 
   <url>
-    <loc>https://techtreasure.sbs/posts/articles/?id=world-environment-day-speech-for-students-2026</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://techtreasure.sbs/articles/Movies/Story-of-Peddi-(2026)-Explained/</loc>
   </url>
 
-  <!-- YouTube Tools -->
+  <url>
+    <loc>https://techtreasure.sbs/articles/Tech-AI/Claude-VS-Chatgpt(2026)/</loc>
+  </url>
 
+  <!-- Games -->
+  <url>
+    <loc>https://techtreasure.sbs/games/rockpapersicors/</loc>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/games/runner/</loc>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/games/sastadinogame/</loc>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/games/tictactoe/</loc>
+  </url>
+
+  <!-- PDF Tools -->
+  <url>
+    <loc>https://techtreasure.sbs/tools/pdf/</loc>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/tools/pdf/addpageno/</loc>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/tools/pdf/compresspdf/</loc>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/tools/pdf/deletepdf/</loc>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/tools/pdf/extractpages/</loc>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/tools/pdf/meargepdf/</loc>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/tools/pdf/metadata/</loc>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/tools/pdf/rearrangepages/</loc>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/tools/pdf/rotatepages/</loc>
+  </url>
+
+  <url>
+    <loc>https://techtreasure.sbs/tools/pdf/splitpdf/</loc>
+  </url>
+
+  <!-- Youtube Tools -->
   <url>
     <loc>https://techtreasure.sbs/tools/Youtube-tools/yt-thumbnail-downloader/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://techtreasure.sbs/tools/Youtube-tools/yt-video-statics/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
 
 </urlset>
