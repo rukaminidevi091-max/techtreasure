@@ -3,6 +3,8 @@
 Ai-multiverse-generator\
 Ai-multiverse-generator\index.html
 apple-touch-icon.png
+Apps\
+Apps\index.html
 articles\
 articles\images\
 articles\images\12.jpeg
@@ -27,6 +29,7 @@ articles\Tech-AI\Claude-VS-Chatgpt(2026)\
 articles\Tech-AI\Claude-VS-Chatgpt(2026)\index.html
 brainrush\
 brainrush\index.html
+ChatGPT Image Jun 7, 2026, 05_04_59 PM.png
 components\
 components\navbar.html
 favicon-16x16.png
@@ -71,15 +74,23 @@ games\tictactoe\
 games\tictactoe\index.html
 generate-sitemap.js
 googlec91ab926b883faaa (1).html
+img\
+img\index.html
 index.html
 index.js
 logo.png
+manifest.json
 memes\
 memes\index.html
 memes\memes.json
 navbar.css
 navbar.js
+project_file_structure.txt
+pwa.js
 robots.txt
+sell\
+sell\index.html
+service-worker.js
 site.webmanifest
 sitemap.xml
 style.css
