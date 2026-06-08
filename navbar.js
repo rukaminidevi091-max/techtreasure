@@ -20,4 +20,14 @@ fetch('/components/navbar.html')
     document.getElementById(
         'navbar-container'
     ).innerHTML = data;
+    // ensure pwa.js is loaded on pages that don't include it statically
+    if (!document.querySelector('script[src="/pwa.js"]')){
+        const s = document.createElement('script');
+        s.src = '/pwa.js';
+        s.async = true;
+        document.body.appendChild(s);
+    } else {
+        // if script already present and exposes initPWA, call init if available
+        if (window.initPWA) try{ window.initPWA(); } catch(e){}
+    }
 });
