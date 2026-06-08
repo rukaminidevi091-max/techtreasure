@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Treasure Image Host</title>
+    
+    <!-- Previous Navbar Assets -->
+    <link rel="stylesheet" href="/navbar.css">
+    <script src="/navbar.js"></script>
+
+    <!-- Tailwind CSS for Premium UI styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-full flex flex-col justify-between font-sans antialiased text-slate-800 bg-slate-50 transition-colors duration-300">
+
+    <!-- Previous Navbar Container -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-3xl w-full mx-auto px-4 py-8">
+        <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-200/60 p-6 md:p-8 transition-all duration-300">
+            
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h1 class="text-2xl font-extrabold tracking-tight text-slate-900">Upload New Image</h1>
+                    <p class="text-sm text-slate-500 mt-1">Direct high-speed hosting via secure CDN</p>
+                </div>
+                <!-- Collapsible Settings Toggle (Advanced ImgBB Key configuration) -->
+                <button id="toggleSettings" class="text-xs text-brand-600 hover:text-brand-700 font-semibold focus:outline-none flex items-center gap-1">
+                    <span>🔧 Custom Key</span>
+                </button>
+            </div>
+
+            <!-- Settings / Custom API Key Box -->
+            <div id="settingsBox" class="hidden mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200 transition-all">
+                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">ImgBB API Key (Optional)</label>
+                <div class="flex gap-2">
+                    <input type="password" id="customApiKeyInput" class="flex-1 bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none" placeholder="Enter your own API key">
+                    <button id="saveKeyBtn" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 text-sm font-semibold rounded-lg">Save</button>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-1.5">Leave empty to use the default high-limit hosting API key.</p>
+            </div>
+
+            <!-- Drag & Drop Zone -->
+            <div class="group relative border-2 border-dashed border-brand-500/60 hover:border-brand-500 rounded-2xl p-10 text-center cursor-pointer bg-gradient-to-b from-brand-50/20 to-brand-50/5 hover:from-brand-50/50 transition-all" id="dropzone">
+                <input type="file" id="file" accept="image/*" class="hidden">
+                
+                <div class="flex flex-col items-center justify-center gap-3">
+                    <div class="p-4 bg-brand-50 text-brand-600 rounded-2xl group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="block text-base font-semibold text-slate-900">Drag & Drop Image Here</span>
+                        <span class="block text-xs text-slate-400 mt-1">or Click to browse storage (Supports PNG, JPG, JPEG, WEBP)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selected File Metadata Panel -->
+            <div id="fileMetaPanel" class="hidden mt-4 p-4 bg-slate-50 border border-slate-200/60 rounded-xl items-center gap-3 animate-fade-in">
+                <div class="p-2.5 bg-blue-100 text-blue-600 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p id="fileName" class="text-sm font-semibold text-slate-800 truncate">No file selected</p>
+                    <p id="fileSize" class="text-xs text-slate-500">0 KB</p>
+                </div>
+                <button id="clearSelectionBtn" class="p-1.5 hover:bg-slate-200 text-slate-400 hover:text-rose-500 rounded-lg transition-colors" title="Remove image">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Upload Action Button -->
+            <button id="uploadBtn" class="w-full bg-brand-600 hover:bg-brand-700 active:scale-[0.99] text-white py-3.5 px-6 rounded-xl font-bold tracking-wide shadow-lg shadow-brand-500/20 hover:shadow-brand-600/30 transition-all duration-150 mt-5 flex items-center justify-center gap-2">
+                <span id="btnText">Upload Image</span>
+                <!-- Loading Spinner -->
+                <svg id="loadingSpinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </button>
+
+            <!-- Status Indicator Panel -->
+            <div id="status" class="hidden mt-4 p-4 rounded-xl text-center font-semibold text-sm"></div>
+
+            <!-- Result Card Panel (Visible upon success) -->
+            <div id="result" class="hidden mt-6 space-y-4 pt-6 border-t border-slate-100">
+                <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-emerald-100 text-emerald-600 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-900">Uploaded Successfully!</p>
+                            <p id="uploadedFileName" class="text-xs text-slate-500 font-mono mt-0.5"></p>
+                        </div>
+                    </div>
+                    <a id="openImgLink" href="#" target="_blank" class="text-xs font-semibold text-brand-600 hover:underline flex items-center gap-1 self-end sm:self-auto">
+                        Open Image 🔗
+                    </a>
+                </div>
+
+                <!-- URL output box & Copy tool -->
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Direct Image Link</label>
+                    <div class="flex gap-2">
+                        <input id="url" readonly class="flex-1 bg-slate-50 text-slate-800 border border-slate-200 rounded-xl px-4 py-3 text-sm font-mono outline-none focus:ring-2 focus:ring-brand-500" value="">
+                        <button onclick="copyUrl()" class="bg-brand-600 hover:bg-brand-700 text-white px-5 rounded-xl text-sm font-semibold whitespace-nowrap active:scale-[0.98] shadow-md shadow-brand-500/10 transition-transform">
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Beautiful Preview image frame -->
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Preview</label>
+                    <div class="relative bg-slate-100 border border-slate-200 rounded-2xl overflow-hidden shadow-inner max-h-[350px] flex items-center justify-center">
+                        <img id="preview" src="" alt="Uploaded preview" class="max-h-[350px] object-contain w-full">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-5 text-xs text-slate-400 border-t border-slate-200/50">
+        <p>&copy; 2026 Tech Treasure Host. Powered by high-speed server endpoints.</p>
+    </footer>
+
+    <!-- Absolute Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+    <script>
+        const DEFAULT_API_KEY = "4583eb0253d2e37298af39927ecfc613";
+        let api_key = DEFAULT_API_KEY;
+
+        const fileInput = document.getElementById("file");
+        const dropzone = document.getElementById("dropzone");
+        const fileMetaPanel = document.getElementById("fileMetaPanel");
+        const fileName = document.getElementById("fileName");
+        const fileSize = document.getElementById("fileSize");
+        const clearSelectionBtn = document.getElementById("clearSelectionBtn");
+        const uploadBtn = document.getElementById("uploadBtn");
+        const btnText = document.getElementById("btnText");
+        const loadingSpinner = document.getElementById("loadingSpinner");
+        const status = document.getElementById("status");
+        const result = document.getElementById("result");
+        const urlInput = document.getElementById("url");
+        const previewImg = document.getElementById("preview");
+        const uploadedFileNameDisplay = document.getElementById("uploadedFileName");
+        const openImgLink = document.getElementById("openImgLink");
+
+        let selectedFile = null;
+
+        // Custom Key Settings toggle logic
+        const toggleSettings = document.getElementById("toggleSettings");
+        const settingsBox = document.getElementById("settingsBox");
+        const customApiKeyInput = document.getElementById("customApiKeyInput");
+        const saveKeyBtn = document.getElementById("saveKeyBtn");
+
+        toggleSettings.onclick = () => {
+            settingsBox.classList.toggle("hidden");
+        };
+
+        saveKeyBtn.onclick = () => {
+            const enteredKey = customApiKeyInput.value.trim();
+            if (enteredKey) {
+                api_key = enteredKey;
+                showToast("🔑 Custom API Key successfully saved!", "success");
+            } else {
+                api_key = DEFAULT_API_KEY;
+                showToast("ℹ️ Reverted to default System Key", "info");
+            }
+            settingsBox.classList.add("hidden");
+        };
+
+        // Trigger file dialogue on dropzone click
+        dropzone.onclick = () => fileInput.click();
+
+        // Clear Selection logic
+        clearSelectionBtn.onclick = (e) => {
+            e.stopPropagation(); // Avoid triggering file select dialog
+            resetFileSelection();
+            showToast("🧹 File selection cleared", "info");
+        };
+
+        function resetFileSelection() {
+            selectedFile = null;
+            fileInput.value = "";
+            fileMetaPanel.classList.add("hidden");
+            fileMetaPanel.classList.remove("flex");
+            result.classList.add("hidden");
+            status.classList.add("hidden");
+        }
+
+        // Handle and preview selected image file
+        function showFile(file){
+            if(!file || !file.type.startsWith("image/")){
+                showToast("❌ Please select a valid image file (PNG, JPG, WEBP etc.)", "error");
+                return;
+            }
+
+            selectedFile = file;
+
+            // Compute human readable file size
+            const sizeInKB = (file.size / 1024).toFixed(1);
+            let sizeStr = `${sizeInKB} KB`;
+            if (parseFloat(sizeInKB) > 1000) {
+                sizeStr = `${(sizeInKB / 1024).toFixed(2)} MB`;
+            }
+
+            // Update details UI
+            fileName.textContent = file.name;
+            fileSize.textContent = sizeStr;
+
+            fileMetaPanel.classList.remove("hidden");
+            fileMetaPanel.classList.add("flex");
+            
+            // Auto hide any stale result boxes
+            result.classList.add("hidden");
+            status.classList.add("hidden");
+
+            showToast("🎯 Image selected successfully!", "success");
+        }
+
+        fileInput.addEventListener("change", e => {
+            if(e.target.files.length){
+                showFile(e.target.files[0]);
+            }
+        });
+
+        // Drag & Drop event bindings
+        dropzone.addEventListener("dragover", e => {
+            e.preventDefault();
+            dropzone.classList.add("border-brand-600", "bg-brand-100/30");
+        });
+
+        ["dragleave", "drop"].forEach(event => {
+            dropzone.addEventListener(event, () => {
+                dropzone.classList.remove("border-brand-600", "bg-brand-100/30");
+            });
+        });
+
+        dropzone.addEventListener("drop", e => {
+            e.preventDefault();
+            if(e.dataTransfer.files.length){
+                showFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        // Upload to API handler
+        uploadBtn.addEventListener("click", async () => {
+            if(!selectedFile){
+                showToast("⚠️ Please select an image first!", "info");
+                return;
+            }
+
+            // Lock UI and show Loading
+            setLoadingState(true);
+            status.className = "mt-4 p-4 rounded-xl text-center font-semibold text-sm bg-blue-50 text-blue-600";
+            status.innerHTML = `⏳ Uploading "${selectedFile.name}" image file to direct CDN...`;
+            status.classList.remove("hidden");
+
+            const formData = new FormData();
+            formData.append("image", selectedFile);
+
+            try{
+                const res = await fetch(
+                    `https://api.imgbb.com/1/upload?key=${api_key}`,
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+                const data = await res.json();
+
+                if(!data.success){
+                    throw new Error(data.error?.message || "Upload failed");
+                }
+
+                const imageUrl = data.data.url;
+
+                // Populate success data inputs and image sources
+                urlInput.value = imageUrl;
+                previewImg.src = imageUrl;
+                
+                // Show original file name prominently after upload
+                uploadedFileNameDisplay.textContent = `File Name: ${selectedFile.name}`;
+                openImgLink.href = imageUrl;
+
+                // Update Status Container
+                status.className = "mt-4 p-4 rounded-xl text-center font-semibold text-sm bg-emerald-50 text-emerald-600";
+                status.innerHTML = `✅ Successfully Uploaded: ${selectedFile.name}`;
+                
+                // Render Details Result Box
+                result.classList.remove("hidden");
+                showToast("🎉 Image Uploaded Successfully!", "success");
+
+            }catch(err){
+                console.error("Upload process error: ", err);
+                status.className = "mt-4 p-4 rounded-xl text-center font-semibold text-sm bg-rose-50 text-rose-600";
+                status.innerHTML = `❌ Upload Failed: ${err.message || 'Unknown network error'}`;
+                showToast("❌ Upload Failed. Check API Key or Internet.", "error");
+            } finally {
+                setLoadingState(false);
+            }
+        });
+
+        function setLoadingState(isLoading) {
+            if (isLoading) {
+                uploadBtn.disabled = true;
+                uploadBtn.classList.add("opacity-75", "cursor-not-allowed");
+                btnText.textContent = "Uploading Image...";
+                loadingSpinner.classList.remove("hidden");
+            } else {
+                uploadBtn.disabled = false;
+                uploadBtn.classList.remove("opacity-75", "cursor-not-allowed");
+                btnText.textContent = "Upload Image";
+                loadingSpinner.classList.add("hidden");
+            }
+        }
+
+        // Custom Safe clipboard copy function designed to work reliably inside secure frames
+        function copyUrl(){
+            const url = urlInput.value;
+            if(!url){
+                showToast("⚠️ No URL available to copy", "info");
+                return;
+            }
+
+            const tempInput = document.createElement("input");
+            tempInput.style.position = "absolute";
+            tempInput.style.left = "-9999px";
+            tempInput.value = url;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast("📋 Link copied to clipboard!", "success");
+                } else {
+                    showToast("❌ Unable to copy link", "error");
+                }
+            } catch (err) {
+                showToast("❌ Copy process failed", "error");
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        // Beautiful Toast message renderer (Clean alerts alternative)
+        function showToast(message, type = 'info') {
+            const container = document.getElementById("toast-container");
+            const toast = document.createElement("div");
+            
+            // Set styles dynamically based on type
+            let bgClass = "bg-brand-600 text-white";
+            let icon = "ℹ️";
+            
+            if (type === "success") {
+                bgClass = "bg-emerald-600 text-white";
+                icon = "✅";
+            } else if (type === "error") {
+                bgClass = "bg-rose-600 text-white";
+                icon = "❌";
+            }
+            
+            toast.className = `p-4 rounded-xl shadow-xl flex items-center gap-3 transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-auto ${bgClass}`;
+            toast.innerHTML = `
+                <span class="text-lg leading-none">${icon}</span>
+                <span class="text-xs font-bold flex-1">${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Frame delay to animate properly
+            setTimeout(() => {
+                toast.classList.remove("translate-y-4", "opacity-0");
+            }, 50);
+
+            // Trigger destruction
+            setTimeout(() => {
+                toast.classList.add("translate-y-4", "opacity-0");
+                setTimeout(() => toast.remove(), 350);
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
