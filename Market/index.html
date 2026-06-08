@@ -1000,6 +1000,11 @@
          MARKETPLACE GRID
          ============================================ -->
     <section class="marketplace" id="marketplace">
+        <div style="display: none;" id="debugInfo" style="background: #f0f0f0; padding: 20px; margin: 20px; border-radius: 8px; border: 1px solid #ddd;">
+            <h3>🔍 Debug Info (Check Console - F12)</h3>
+            <p style="font-size: 12px; color: #666;">Your sheet columns are:</p>
+            <code id="debugColumns" style="display: block; background: white; padding: 10px; margin: 10px 0; border-radius: 4px; overflow-x: auto; font-size: 11px;"></code>
+        </div>
         <div class="marketplace__grid" id="listingsGrid">
             <!-- Populated by JavaScript -->
         </div>
@@ -1065,7 +1070,11 @@
            DATA MANAGEMENT
            ============================================ */
 
-        const OPENSHEET_API_URL = 'https://opensheet.elk.sh/1qMsMU_MKbW1fBhzVpDj1TWmFzV3vyFoEHwwZFMF9Yuc/Form%20Responses%201';
+        const OPENSHEET_API_URLS = [
+            'https://opensheet.elk.sh/1qMsMU_MKbW1fBhzVpDj1TWmFzV3vyFoEHwwZFMF9Yuc/TT',
+            'https://opensheet.elk.sh/1qMsMU_MKbW1fBhzVpDj1TWmFzV3vyFoEHwwZFMF9Yuc/TT',
+        ];
+        let OPENSHEET_API_URL = OPENSHEET_API_URLS[0];
         const LISTINGS_PER_PAGE = 20;
         const LISTINGS_BEFORE_AD = 5;
 
@@ -1162,40 +1171,108 @@
          * Fetches listings from OpenSheet API
          */
         async function fetchListings() {
-            try {
-                const response = await fetch(OPENSHEET_API_URL);
-                if (!response.ok) throw new Error('Network response failed');
+            let lastError;
+            
+            // Try each API endpoint
+            for (let urlIndex = 0; urlIndex < OPENSHEET_API_URLS.length; urlIndex++) {
+                const apiUrl = OPENSHEET_API_URLS[urlIndex];
+                try {
+                    console.log(`🔄 Attempt ${urlIndex + 1}: Fetching from ${apiUrl}`);
+                    const response = await fetch(apiUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        lastError = new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        console.warn(`❌ Failed with ${response.status}, trying next endpoint...`);
+                        continue;
+                    }
 
-                const data = await response.json();
-                
-                // Validate and transform data
-                allListings = data
-                    .filter(item => sanitizeString(item['Your Listing Name']) && sanitizeString(item['Link']))
-                    .map((item, index) => ({
-                        id: index,
-                        timestamp: sanitizeString(item['Timestamp']),
-                        name: sanitizeString(item['Your Listing Name']),
-                        portfolio: sanitizeString(item['Portfolio (Optional only for Services)']),
-                        type: sanitizeString(item['Listing Type']),
-                        price: formatPrice(sanitizeString(item['Price'])),
-                        image: sanitizeString(item['Header Image']),
-                        telegram: sanitizeString(item['Your Telegram Username (fill carefully with @)']),
-                        description: sanitizeString(item['Extra Info in Detail']),
-                        link: sanitizeString(item['Link']),
-                        contact: sanitizeString(item['Other Contact Details ( number, email etc)']),
-                        category: sanitizeString(item['Category/Niche']),
-                    }))
-                    .filter(listing => listing.name && listing.type);
+                    const data = await response.json();
+                    console.log('📦 Raw data received:', data);
+                    
+                    // Handle double-nested arrays from opensheet.elk.sh
+                    let flatData = data;
+                    if (Array.isArray(data) && data.length > 0 && Array.isArray(data[0])) {
+                        console.log('⚠️ Data is double-nested, flattening...');
+                        flatData = data.flat();
+                    }
+                    
+                    console.log('📊 Total rows:', flatData.length);
+                    
+                    if (!Array.isArray(data) || data.length === 0) {
+                        lastError = new Error('No data received or invalid format');
+                        console.warn('⚠️ No data or invalid format, trying next endpoint...');
+                        continue;
+                    }
+                    
+                    // Log first item to check structure
+                    console.log('🔍 First item structure:');
+                    console.table(data[0]);
+                    console.log('Available columns:', Object.keys(data[0]));
+                    
+                    // Validate and transform data
+                    allListings = data
+                        .filter(item => sanitizeString(item['Your Listing Name ']) && sanitizeString(item['Link']))
+                        .map((item, index) => ({
+                            id: index,
+                            timestamp: sanitizeString(item['Timestamp']),
+                            name: sanitizeString(item['Your Listing Name ']),
+                            portfolio: sanitizeString(item['Portfolio (Optional only for Services)']),
+                            type: sanitizeString(item['Listing Type']),
+                            price: formatPrice(sanitizeString(item['Price'])),
+                            image: sanitizeString(item['Header Image']),
+                            telegram: sanitizeString(item['Your Telegram Username (fill carefully with @)']),
+                            description: sanitizeString(item['Extra Info in Detail']),
+                            link: sanitizeString(item['Link']),
+                            contact: sanitizeString(item['Other Contact Details ( number, email etc)']),
+                            category: sanitizeString(item['Category/Niche']),
+                        }))
+                        .filter(listing => listing.name && listing.type);
 
-                // Shuffle listings
-                allListings = shuffleArray(allListings);
-                dataLoaded = true;
+                    console.log('✅ Processed listings count:', allListings.length);
+                    
+                    if (allListings.length === 0) {
+                        const actualColumns = Object.keys(data[0]);
+                        console.warn('⚠️ No valid listings after filtering. Check column names match exactly:');
+                        console.warn('Expected: "Your Listing Name", "Link", "Listing Type", "Category/Niche"');
+                        console.warn('Actual columns:', actualColumns);
+                        
+                        // Show columns on page too
+                        const debugInfo = document.getElementById('debugInfo');
+                        const debugColumns = document.getElementById('debugColumns');
+                        if (debugInfo && debugColumns) {
+                            debugInfo.style.display = 'block';
+                            debugColumns.textContent = JSON.stringify(actualColumns, null, 2);
+                        }
+                        
+                        lastError = new Error('No valid listings after filtering');
+                        continue;
+                    }
 
-                initializeMarketplace();
-            } catch (error) {
-                console.error('Failed to fetch listings:', error);
-                showError();
+                    // Shuffle listings
+                    allListings = shuffleArray(allListings);
+                    dataLoaded = true;
+                    console.log('🎉 SUCCESS! Marketplace initialized with', allListings.length, 'listings');
+
+                    initializeMarketplace();
+                    return; // Success - exit function
+                    
+                } catch (error) {
+                    lastError = error;
+                    console.error(`❌ Attempt ${urlIndex + 1} failed:`, error.message);
+                    if (urlIndex < OPENSHEET_API_URLS.length - 1) {
+                        console.log('Trying next endpoint...');
+                    }
+                }
             }
+            
+            // All endpoints failed
+            console.error('❌ All endpoints failed. Last error:', lastError?.message);
+            showError();
         }
 
         // ============================================
@@ -1570,9 +1647,17 @@
         function showError() {
             const marketplace = document.getElementById('marketplace');
             marketplace.innerHTML = `
-                <div class="error-banner">
-                    <strong>⚠️ Unable to load marketplace listings right now.</strong><br>
-                    Please try again later.
+                <div class="error-banner" style="background: #fef2f2; border: 1px solid #fee2e2; color: #991b1b; padding: 20px; border-radius: 8px; margin: 20px auto; max-width: 600px;">
+                    <strong>⚠️ Unable to load marketplace listings</strong>
+                    <p style="margin: 10px 0 0 0; font-size: 14px;">
+                        Please check the browser console for details (Press F12 → Console tab) or try refreshing the page.
+                    </p>
+                    <p style="margin: 10px 0 0 0; font-size: 13px; color: #7f1d1d;">
+                        Make sure the Google Sheet is accessible and contains data in the correct columns.
+                    </p>
+                    <button onclick="location.reload()" style="margin-top: 10px; padding: 8px 16px; background: #991b1b; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        Retry
+                    </button>
                 </div>
             `;
             document.getElementById('loadMoreContainer').style.display = 'none';
