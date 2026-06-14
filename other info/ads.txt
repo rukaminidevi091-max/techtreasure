@@ -1,0 +1,29 @@
+Monetag -
+ vignete banners = [
+
+<script>(function(s){s.dataset.zone='11093287',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+ ]
+
+ others =[ 
+
+    <script>(function(s){s.dataset.zone='11102727',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+ ],
+ [
+<script src="https://5gvci.com/act/files/tag.min.js?z=11102725" data-cfasync="false" async></script>
+
+ ]
+
+Adstera banner ad = [
+    <script>
+  atOptions = {
+    'key' : '1968f0077a296f2b0346ba8b087f03d4',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/1968f0077a296f2b0346ba8b087f03d4/invoke.js"></script>
+
+]

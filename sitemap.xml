@@ -1,201 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Homepage -->
-  <url>
-    <loc>https://techtreasure.sbs/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
+    <url>
+        <loc>https://techtreasure.sbs/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
 
-  <!-- Main Pages -->
-  <url>
-    <loc>https://techtreasure.sbs/apps/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
+    <url><loc>https://techtreasure.sbs/calculators/age-calculator/</loc></url>
+    <url><loc>https://techtreasure.sbs/calculators/bmi-calculator/</loc></url>
+    <url><loc>https://techtreasure.sbs/calculators/cgpa-to-percentage/</loc></url>
+    <url><loc>https://techtreasure.sbs/calculators/compound-interest-calculator/</loc></url>
+    <url><loc>https://techtreasure.sbs/calculators/discount-calculator/</loc></url>
+    <url><loc>https://techtreasure.sbs/calculators/gst-calculator/</loc></url>
+    <url><loc>https://techtreasure.sbs/calculators/loan-calculator/</loc></url>
+    <url><loc>https://techtreasure.sbs/calculators/percentage-calculator/</loc></url>
+    <url><loc>https://techtreasure.sbs/calculators/simple-interest-calculator/</loc></url>
+    <url><loc>https://techtreasure.sbs/calculators/time-calculator/</loc></url>
+    <url><loc>https://techtreasure.sbs/calculators/unit-converter/</loc></url>
 
-  <url>
-    <loc>https://techtreasure.sbs/market/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
+    <url><loc>https://techtreasure.sbs/images/image-background-remover/</loc></url>
+    <url><loc>https://techtreasure.sbs/images/image-compressor/</loc></url>
+    <url><loc>https://techtreasure.sbs/images/image-converter/</loc></url>
+    <url><loc>https://techtreasure.sbs/images/image-cropper/</loc></url>
+    <url><loc>https://techtreasure.sbs/images/image-filter/</loc></url>
+    <url><loc>https://techtreasure.sbs/images/image-resizer/</loc></url>
+    <url><loc>https://techtreasure.sbs/images/image-rotator/</loc></url>
+    <url><loc>https://techtreasure.sbs/images/image-to-base64/</loc></url>
+    <url><loc>https://techtreasure.sbs/images/image-to-link/</loc></url>
+    <url><loc>https://techtreasure.sbs/images/image-to-pdf/</loc></url>
+    <url><loc>https://techtreasure.sbs/images/image-to-text/</loc></url>
+    <url><loc>https://techtreasure.sbs/images/image-upscaler/</loc></url>
 
-  <url>
-    <loc>https://techtreasure.sbs/articles/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
+    <url><loc>https://techtreasure.sbs/pdf/add-blank-pages/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/add-header-footer/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/add-page-numbers/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/add-watermark-to-pdf/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/compress-pdf/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/crop-pdf/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/delete-pdf-pages/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/edit-pdf-metadata/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/extract-pdf-pages/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/extract-pdf-text/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/jpg-to-pdf/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/merge-pdf/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/pdf-bookmark-creator/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/pdf-page-counter/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/pdf-page-manager/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/pdf-qr-code-inserter/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/pdf-thumbnail-generator/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/pdf-to-jpg/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/pdf-to-png/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/pdf-viewer/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/pdf-word-counter/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/png-to-pdf/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/protect-pdf/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/remove-duplicate-pages/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/reorder-pdf-pages/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/resize-pdf-pages/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/rotate-pdf-pages/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/sign-pdf/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/split-pdf/</loc></url>
+    <url><loc>https://techtreasure.sbs/pdf/unlock-pdf/</loc></url>
 
-  <url>
-    <loc>https://techtreasure.sbs/tools/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
+    <url><loc>https://techtreasure.sbs/text-tools/case-converter/</loc></url>
+    <url><loc>https://techtreasure.sbs/text-tools/character-counter/</loc></url>
+    <url><loc>https://techtreasure.sbs/text-tools/grammar-checker/</loc></url>
+    <url><loc>https://techtreasure.sbs/text-tools/paraphrasing-tool/</loc></url>
+    <url><loc>https://techtreasure.sbs/text-tools/plagiarism-checker/</loc></url>
+    <url><loc>https://techtreasure.sbs/text-tools/random-text-generator/</loc></url>
+    <url><loc>https://techtreasure.sbs/text-tools/remove-extra-spaces/</loc></url>
+    <url><loc>https://techtreasure.sbs/text-tools/speech-to-text/</loc></url>
+    <url><loc>https://techtreasure.sbs/text-tools/text-to-base64/</loc></url>
+    <url><loc>https://techtreasure.sbs/text-tools/text-to-speech/</loc></url>
+    <url><loc>https://techtreasure.sbs/text-tools/word-counter/</loc></url>
 
-  <url>
-    <loc>https://techtreasure.sbs/games/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/memes/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/support/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/free-editing-resources/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/tele-groups-channels/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/brainrush/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/unlimited/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/ai-multiverse-generator/</loc>
-    <lastmod>2026-06-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Articles -->
-  <url>
-    <loc>https://techtreasure.sbs/articles/movies/12th-fail-movie-explained/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/articles/movies/saiyara-2025-full-explained/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/articles/movies/story-of-peddi-2026-explained/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/articles/tech-ai/claude-vs-chatgpt-2026/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <!-- Games -->
-  <url>
-    <loc>https://techtreasure.sbs/games/rock-paper-scissors/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/games/runner/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/games/sasta-dino-game/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/games/tic-tac-toe/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <!-- PDF Tools -->
-  <url>
-    <loc>https://techtreasure.sbs/tools/pdf/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/tools/pdf/add-page-number/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/tools/pdf/compress-pdf/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/tools/pdf/delete-pdf/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/tools/pdf/extract-pages/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/tools/pdf/merge-pdf/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/tools/pdf/metadata/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/tools/pdf/rearrange-pages/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/tools/pdf/rotate-pages/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/tools/pdf/split-pdf/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <!-- YouTube Tools -->
-  <url>
-    <loc>https://techtreasure.sbs/tools/youtube-tools/yt-thumbnail-downloader/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
-
-  <url>
-    <loc>https://techtreasure.sbs/tools/youtube-tools/yt-video-statics/</loc>
-    <lastmod>2026-06-11</lastmod>
-  </url>
+    <url><loc>https://techtreasure.sbs/youtube-tools/youtube-subtitle-downloader/</loc></url>
+    <url><loc>https://techtreasure.sbs/youtube-tools/youtube-thumbnail-downloader/</loc></url>
+    <url><loc>https://techtreasure.sbs/youtube-tools/youtube-to-mp3/</loc></url>
+    <url><loc>https://techtreasure.sbs/youtube-tools/youtube-to-mp4/</loc></url>
 
 </urlset>
